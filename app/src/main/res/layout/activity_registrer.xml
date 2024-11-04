@@ -12,19 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <io.github.florent37.shapeofview.shapes.ArcView
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:elevation="4dp"
-            app:shape_arc_cropDirection="outside"
             app:shape_arc_height="20dp"
             app:shape_arc_position="bottom">
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
-                >
-            </View>
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,23 +33,20 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:layout_marginTop="30dp"
-                >
-            </TextView>
+                />
             <ImageView
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/personaW"
+                android:src="@drawable/personaw"
                 android:layout_gravity="center|bottom"
-                >
-            </ImageView>
+                />
             <ImageView
                 android:id="@+id/circuloBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:src="@drawable/ic_back"
-                >
-            </ImageView>
+                />
         </io.github.florent37.shapeofview.shapes.ArcView>
 
         <!--Usuario-->
@@ -68,8 +64,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_usuario"
                 android:layout_marginRight="5dp"
-                >
-            </ImageView>
+                />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,8 +98,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_mail"
                 android:layout_marginRight="5dp"
-                >
-            </ImageView>
+                />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -138,8 +132,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_pass"
                 android:layout_marginRight="5dp"
-                >
-            </ImageView>
+                />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,8 +166,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_pass"
                 android:layout_marginRight="5dp"
-                >
-            </ImageView>
+                />
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
