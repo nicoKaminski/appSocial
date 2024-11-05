@@ -117,32 +117,33 @@
             android:textSize="20dp"
             >
         </Button>
+    </LinearLayout>
 
-        <!--Texto-->
-        <LinearLayout
-            android:layout_width="match_parent"
+    <!--Texto-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:layout_marginTop="120dp"
+            android:text="No tienes una cuenta? "
+            android:textSize="17sp"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No tienes una cuenta? "
-                android:textSize="17sp"
-                >
-            </TextView>
-            <TextView
-                android:id="@+id/tvRegistrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Registrate AQUI "
-                android:textSize="17sp"
-                android:textStyle="bold"
-                >
-            </TextView>
-        </LinearLayout>
+        </TextView>
+        <TextView
+            android:id="@+id/tvRegistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrate AQUI "
+            android:textSize="17sp"
+            android:textStyle="bold"
+            >
+        </TextView>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
