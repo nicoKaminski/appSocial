@@ -39,7 +39,7 @@ public class UserProvider {
                 DocumentSnapshot document = queryDocumentSnapshots.getDocuments().get(0);
                 User user = document.toObject(User.class);
                 if (user != null) {
-                    Log.d("UserProvider", "Usuario encontrado: " + user.getUseremail());
+                    Log.d("UserProvider", "Usuario encontrado: " + user.getUserEmail());
                 } else {
                     Log.d("UserProvider", "Error: Usuario no encontrado");
                 }
@@ -49,7 +49,7 @@ public class UserProvider {
                 userData.setValue(null);
             }
         }).addOnFailureListener(e -> {
-            Log.d("UserProvider", "Error en consulta de Firestore: " + e.getMessage());
+            Log.d("UserProvider", "Error en consulta de Firestore: ", e);
             userData.setValue(null);
         });
         return userData;
@@ -67,9 +67,9 @@ public class UserProvider {
         return result;
     }
 
-    public LiveData<String> deleteUser(User user) {
+    public LiveData<String> deleteUser(String userId) {
         MutableLiveData<String> result = new MutableLiveData<>();
-        firestore.collection(USER_COLLECTION).document(user.getUserId()).delete().addOnCompleteListener(task -> {
+        firestore.collection(USER_COLLECTION).document(userId).delete().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 result.setValue("Usuario eliminado correctamente");
             } else {

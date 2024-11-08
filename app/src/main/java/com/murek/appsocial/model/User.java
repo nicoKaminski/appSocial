@@ -3,7 +3,7 @@ package com.murek.appsocial.model;
 public class User {
     private String userId;
     private String userName;
-    private String useremail;
+    private String userEmail;
     private String userpassword;
 
     public User() {
@@ -11,14 +11,14 @@ public class User {
 
     public User(String userName, String userEmail, String userPassword) {
         this.userName = userName;
-        this.useremail = userEmail;
+        this.userEmail = userEmail;
         this.userpassword = userPassword;
     }
 
     public User(String id, String userName, String userEmail, String userPassword) {
         this.userId = id;
         this.userName = userName;
-        this.useremail = userEmail;
+        this.userEmail = userEmail;
         this.userpassword = userPassword;
     }
 
@@ -38,12 +38,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getUseremail() {
-        return useremail;
+    public String getUserEmail() {
+        return userEmail;
     }
 
     public void setUseremail(String useremail) {
-        this.useremail = useremail;
+        this.userEmail = useremail;
     }
 
     public String getUserpassword() {

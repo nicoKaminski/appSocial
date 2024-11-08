@@ -1,5 +1,8 @@
 package com.murek.appsocial.providers;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -23,13 +26,16 @@ public class AuthProvider {
         // para saber si la autenticacion fue exitosa
         task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(Task<AuthResult> task) {
+            public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
                     authResult.setValue(firebaseAuth.getCurrentUser().getUid());
                 } else {
-                    authResult.setValue(null);
+                    if (task.getException() != null) {
+                        Log.e("AuthProvider", "Error de autenticación", task.getException());
+                            authResult.setValue(null);
+                        }
+                    }
                 }
-            }
         });
         return authResult;
     }

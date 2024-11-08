@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/personaw"
+                android:src="@drawable/personblanco"
                 android:layout_gravity="center|bottom"
                 />
             <ImageView
@@ -72,7 +72,7 @@
                 app:boxBackgroundMode="none"
                 >
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etUsuario"
+                    android:id="@+id/etNewUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre de Usuario"
@@ -106,7 +106,7 @@
                 app:boxBackgroundMode="none"
                 >
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etMail"
+                    android:id="@+id/etNewMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Correo electronico"

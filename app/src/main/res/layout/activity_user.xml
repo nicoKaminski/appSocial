@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/personaw"
+                android:src="@drawable/personblanco"
                 android:layout_gravity="center|bottom"/>
 
             <ImageView

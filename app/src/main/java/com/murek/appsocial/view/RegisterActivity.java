@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void manejarEventos() {
-        // Evento volver atras
+        // Boton volver atras
         binding.circuloBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,8 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void realizarRegistro() {
-        String usuario = binding.etUsuario.getText().toString().trim();
-        String email = binding.etMail.getText().toString().trim();
+        String usuario = binding.etNewUsuario.getText().toString().trim();
+        String email = binding.etNewMail.getText().toString().trim();
         String password = binding.etPassNew.getText().toString().trim();
         String passwordConfirm = binding.etPassNewConfirm.getText().toString().trim();
 
@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
         finish();
     }
 }

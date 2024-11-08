@@ -43,16 +43,18 @@ public class UserViewModel extends ViewModel {
 
 
     public void createUser(User user, LifecycleOwner lifecycleOwner) {
-        authProvider.singUp(user.getUseremail(), user.getUserpassword()).observe(lifecycleOwner, sId -> {
+        authProvider.singUp(user.getUserEmail(), user.getUserpassword()).observe(lifecycleOwner, sId -> {
             if (sId != null) {
                 user.setUserId(sId);
                 userProvider.createUser(user).observe(lifecycleOwner, status -> {
                     if (status != null) {
                         estado.setValue(status);
                     } else {
-                        estado.setValue("Error al registrar usuario");
+                        estado.setValue("Error al crearar usuario en Firebase");
                     }
                 });
+            } else {
+                estado.setValue("Error al registrar usuario en Firebase");
             }
         });
     }
@@ -67,8 +69,8 @@ public class UserViewModel extends ViewModel {
         });
     }
 
-    public void deleteUser(User user, LifecycleOwner lifecycleOwner) {
-        LiveData<String> result = userProvider.deleteUser(user);//ver porque aca la profe puso userId
+    public void deleteUser(String userId, LifecycleOwner lifecycleOwner) {
+        LiveData<String> result = userProvider.deleteUser(userId);
         result.observe(lifecycleOwner, new Observer<String>() {
             @Override
             public void onChanged(String status) {

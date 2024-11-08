@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.murek.appsocial.viewModel.UserViewModel;
 import com.murek.appsocial.databinding.ActivityUserBinding;
 import com.murek.appsocial.model.User;
@@ -36,12 +37,13 @@ public class UserActivity extends AppCompatActivity {
                 limpiar();
             }
         });
-
         viewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 if (user != null) {
                     mostrarUsuario(user);
+                } else {
+                    Log.e("UserActivity", "El usuario es null");
                 }
             }
         });
@@ -49,11 +51,47 @@ public class UserActivity extends AppCompatActivity {
 
     private void manejarEventos() {
 
+        // Boton crear vista gestion
         binding.btGestionCrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User usuario = obtenerDatosUsuario();
                 viewModel.createUser(usuario, UserActivity.this);
+            }
+        });
+
+        // Boton actualizar
+        binding.btGestionActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User usuario = obtenerDatosUsuario();
+                viewModel.updateUser(usuario, UserActivity.this);
+            }
+        });
+
+        // Boton borrar
+        binding.btGestionEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = binding.etGestionId.getText().toString().trim();
+                viewModel.deleteUser(id, UserActivity.this);
+            }
+        });
+
+        // Boton leer
+        binding.btGestionLeer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mail = binding.etGestionMail.getText().toString().trim();
+                viewModel.getUser(mail, UserActivity.this);
+            }
+        });
+
+        //Boton atras
+        binding.circuloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -69,9 +107,9 @@ public class UserActivity extends AppCompatActivity {
     private void mostrarUsuario(User user) {
         binding.etGestionId.setText(user.getUserId());
         binding.etGestionUsuario.setText(user.getUserName());
-        binding.etGestionMail.setText(user.getUseremail());
+        binding.etGestionMail.setText(user.getUserEmail());
         binding.etGestionPass.setText(user.getUserpassword());
-        Log.d("mostrar", user.getUserId()+" - "+user.getUserName());
+        Log.d("mostrar", user.getUserId() + " - " + user.getUserName());
     }
 
     private void limpiar() {

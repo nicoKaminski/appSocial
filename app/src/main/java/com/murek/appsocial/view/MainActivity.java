@@ -2,6 +2,7 @@ package com.murek.appsocial.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,14 +29,18 @@ public class MainActivity extends AppCompatActivity {
         manejarEventos();
     }
 
+    // Boton registrar
     private void manejarEventos() {
         binding.tvRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
-        }
+                //startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
         });
 
+        // Boton iniciar sesion
         binding.btIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,19 +59,25 @@ public class MainActivity extends AppCompatActivity {
 
                 // observar el resultado del login
                 viewModel.login(email, password).observe(MainActivity.this, logingOk -> {
-                    if (logingOk) {
-                        startActivity(new Intent(MainActivity.this, UserActivity.class));
+                    if (logingOk != null && logingOk) {
+                        //startActivity(new Intent(MainActivity.this, UserActivity.class));
+                        Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                        startActivity(intent);
                     } else {
                         showToast("Error al iniciar sesión");
+                        if (logingOk == null) {
+                            Log.e("MainActivity", "La respuesta de autenticación es null");
+                        }
                     }
-            });
-        }
+                });
+            }
         });
     }
 
     private void showToast(String message) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onResume() {
         super.onResume();

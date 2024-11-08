@@ -22,7 +22,7 @@ public class RegisterViewModel extends ViewModel {
         MutableLiveData<String> registerResult = new MutableLiveData<>();
 
         //primero registra el usuario en firebase
-        authProvider.singUp(user.getUseremail(), user.getUserpassword()).observeForever(new Observer<String>() {
+        authProvider.singUp(user.getUserEmail(), user.getUserpassword()).observeForever(new Observer<String>() {
             @Override
             public void onChanged(String sId) {
                 if (sId != null) {
