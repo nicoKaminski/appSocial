@@ -48,7 +48,8 @@ public class UserViewModel extends ViewModel {
                 user.setUserId(sId);
                 userProvider.createUser(user).observe(lifecycleOwner, status -> {
                     if (status != null) {
-                        estado.setValue(status);
+//                        estado.setValue(status);
+                        estado.setValue("Usuario registrado correctamente");
                     } else {
                         estado.setValue("Error al crearar usuario en Firebase");
                     }
@@ -58,6 +59,7 @@ public class UserViewModel extends ViewModel {
             }
         });
     }
+
 
     public void updateUser(User user, LifecycleOwner lifecycleOwner) {
         LiveData<String> result = userProvider.updateUser(user);
@@ -80,16 +82,29 @@ public class UserViewModel extends ViewModel {
     }
 
     public void getUser(String email, LifecycleOwner lifecycleOwner) {
-        LiveData<User> result = userProvider.getUser(email);
-        result.observe(lifecycleOwner, new Observer<User>() {
+        LiveData<User> user = userProvider.getUser(email);
+        user.observe(lifecycleOwner, new Observer<User>() {
             @Override
             public void onChanged(User foundUser) {
                 if (foundUser != null) {
-                    Log.d("User info ","ID: "+ foundUser.getUserId()+" - Nombre: "+foundUser.getUserName());
+                    Log.d("User info ", "ID: " + foundUser.getUserId() + " - Nombre: " + foundUser.getUserName());
                     currentUser.setValue(foundUser);
                 } else {
                     estado.setValue("Error al obtener el usuario");
                 }
+            }
+        });
+    }
+
+    // otro metodo para ger user
+    public void getUser2() {
+        LiveData<User> user = userProvider.getUser2();
+        user.observeForever(foundUser -> {
+            if (foundUser != null) {
+                currentUser.setValue(foundUser);
+                Log.d("UserViewModel", "Usuario autenticado: " + foundUser.getUserEmail());
+            } else {
+                estado.setValue("No se encontró ningún usuario autenticado");
             }
         });
     }

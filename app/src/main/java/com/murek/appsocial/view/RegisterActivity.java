@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                realizarRegistro();
+                limpiar();
             }
         });
     }
@@ -76,5 +77,12 @@ public class RegisterActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
         finish();
+    }
+
+    private void limpiar() {
+        binding.etNewUsuario.setText("");
+        binding.etNewMail.setText("");
+        binding.etPassNew.setText("");
+        binding.etPassNewConfirm.setText("");
     }
 }

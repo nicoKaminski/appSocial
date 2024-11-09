@@ -31,13 +31,15 @@ public class RegisterViewModel extends ViewModel {
                         @Override
                         public void onChanged(String result) {
                             registerResult.setValue(result);
+//                            registerResult.setValue("Usuario registrado correctamente");
                         }
                     });
                 } else {
-                    registerResult.setValue("Error al registrar usuario");
+                    registerResult.setValue("Error en la autenticación");
                 }
             }
         });
         return registerResult;
     }
 }
+

@@ -43,6 +43,7 @@ public class UserActivity extends AppCompatActivity {
                 if (user != null) {
                     mostrarUsuario(user);
                 } else {
+                    Toast.makeText(UserActivity.this, "Usuario no encontrado", Toast.LENGTH_SHORT).show();
                     Log.e("UserActivity", "El usuario es null");
                 }
             }
@@ -83,7 +84,8 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String mail = binding.etGestionMail.getText().toString().trim();
-                viewModel.getUser(mail, UserActivity.this);
+//                viewModel.getUser(mail, UserActivity.this);
+                viewModel.getUser2();
             }
         });
 
@@ -97,11 +99,11 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private User obtenerDatosUsuario() {
-        String id = binding.etGestionId.getText().toString().trim();
+        String userId = binding.etGestionId.getText().toString().trim();
         String userName = binding.etGestionUsuario.getText().toString().trim();
-        String email = binding.etGestionMail.getText().toString().trim();
-        String password = binding.etGestionPass.getText().toString().trim();
-        return new User(id, userName, email, password);
+        String userEmail = binding.etGestionMail.getText().toString().trim();
+        String userpassword = binding.etGestionPass.getText().toString().trim();
+        return new User(userId, userName, userEmail, userpassword);
     }
 
     private void mostrarUsuario(User user) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -11,8 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <!--Ojo-->
         <io.github.florent37.shapeofview.shapes.DiagonalView
             android:layout_width="match_parent"
@@ -20,18 +18,18 @@
             android:elevation="4dp"
             app:shape_diagonal_angle="10"
             app:shape_diagonal_position="bottom">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                >
+                android:background="@color/colorPrimary">
             </View>
+
             <ImageView
                 android:layout_width="220dp"
                 android:layout_height="180dp"
-                android:src="@drawable/opticdev_gray"
                 android:layout_gravity="center|top"
-                >
+                android:src="@drawable/opticdev_gray">
             </ImageView>
         </io.github.florent37.shapeofview.shapes.DiagonalView>
 
@@ -39,33 +37,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="70dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_mail"
                 android:layout_marginRight="5dp"
-                >
+                android:src="@drawable/ic_mail">
             </ImageView>
+
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundMode="none"
-                >
+                app:boxBackgroundMode="none">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingrese su email"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    >
+                    android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -74,76 +71,85 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_pass"
                 android:layout_marginRight="5dp"
-                >
+                android:src="@drawable/ic_pass">
             </ImageView>
+
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundMode="none"
-                >
+                app:boxBackgroundMode="none">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ingrese su password"
                     android:inputType="textPassword"
-                    android:singleLine="true"
-                    >
+                    android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
+
         <Button
             android:id="@+id/btIniciarSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="INICIAR SESIÓN"
-            android:textStyle="bold"
             android:textSize="20dp"
-            >
+            android:textStyle="bold">
         </Button>
+
+        <!--Texto-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No tienes una cuenta? "
+                android:textSize="17sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/tvRegistrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrate AQUI "
+                android:textSize="17sp"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
+
+        <!--Barra de navegación (PARA PROBAR)-->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 
-    <!--Texto-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No tienes una cuenta? "
-            android:textSize="17sp"
-            >
-        </TextView>
-        <TextView
-            android:id="@+id/tvRegistrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrate AQUI "
-            android:textSize="17sp"
-            android:textStyle="bold"
-            >
-        </TextView>
-    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
