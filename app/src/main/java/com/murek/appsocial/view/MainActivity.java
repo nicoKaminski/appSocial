@@ -2,7 +2,6 @@ package com.murek.appsocial.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         manejarEventos();
     }
 
-    // Boton registrar
     private void manejarEventos() {
+        // Boton registrar
         binding.tvRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         // Boton iniciar sesion
         binding.btIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +59,10 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.login(email, password).observe(MainActivity.this, logingOk -> {
                     if (logingOk != null && logingOk) {
                         //startActivity(new Intent(MainActivity.this, UserActivity.class));
-                        Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
                     } else {
                         showToast("Error al iniciar sesión");
-                        if (logingOk == null) {
-                            Log.e("MainActivity", "La respuesta de autenticación es null");
-                        }
                     }
                 });
             }

@@ -68,8 +68,16 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        /* CODIGO VIEJO
         User user = new User(usuario, email, password);
         viewModel.register(user).observe(this, result -> {
+            showToast(result);
+        });
+        */
+
+        User user = new User(usuario, email, password);
+        viewModel.register(user);
+        viewModel.getRegisterResult().observe(this, result -> {
             showToast(result);
         });
     }

@@ -7,39 +7,26 @@ import androidx.lifecycle.ViewModel;
 
 import com.murek.appsocial.model.User;
 import com.murek.appsocial.providers.AuthProvider;
-import com.murek.appsocial.providers.UserProvider;
 
 public class RegisterViewModel extends ViewModel {
-    private final AuthProvider authProvider;
-    private final UserProvider userProvider;
+    private AuthProvider authProvider;
+    private MutableLiveData<String> registerResult = new MutableLiveData<>();
 
     public RegisterViewModel() {
-        authProvider = new AuthProvider();
-        userProvider = new UserProvider();
     }
 
-    public LiveData<String> register(User user) {
-        MutableLiveData<String> registerResult = new MutableLiveData<>();
+    public LiveData<String> getRegisterResult() {
+        return registerResult;
+    }
 
-        //primero registra el usuario en firebase
-        authProvider.singUp(user.getUserEmail(), user.getUserpassword()).observeForever(new Observer<String>() {
+    public void register(User user) {
+        authProvider = new AuthProvider();
+        authProvider.singUp(user).observeForever(new Observer<String>() {
             @Override
-            public void onChanged(String sId) {
-                if (sId != null) {
-                    user.setUserId(sId);
-                    userProvider.createUser(user).observeForever(new Observer<String>() {
-                        @Override
-                        public void onChanged(String result) {
-                            registerResult.setValue(result);
-//                            registerResult.setValue("Usuario registrado correctamente");
-                        }
-                    });
-                } else {
-                    registerResult.setValue("Error en la autenticación");
-                }
+            public void onChanged(String s) {
+                registerResult.setValue(s);
             }
         });
-        return registerResult;
     }
 }
 

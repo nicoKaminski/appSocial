@@ -1,55 +1,124 @@
 package com.murek.appsocial.providers;
 
+import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.murek.appsocial.R;
+import com.murek.appsocial.model.User;
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
+
 
 public class AuthProvider {
-    private FirebaseAuth firebaseAuth;
 
-    // constructor
     public AuthProvider() {
-        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    public AuthProvider(Context context) {
+        Parse.initialize(new Parse.Configuration.Builder(context)
+                .applicationId(context.getString(R.string.back4app_app_id))
+                .clientKey(context.getString(R.string.back4app_client_key))
+                .server(context.getString(R.string.back4app_server_url))
+                .build()
+        );
     }
 
     // metodo
-    private LiveData<String> helperAuth(Task<AuthResult> task) {
+    public LiveData<String> singIn(String email, String password) {
         MutableLiveData<String> authResult = new MutableLiveData<>();
         // para saber si la autenticacion fue exitosa
-        task.addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful() && firebaseAuth.getCurrentUser() != null) {
-                    authResult.setValue(firebaseAuth.getCurrentUser().getUid());
+        ParseUser.logInInBackground(email, password, (user, e) -> {
+                if (e == null) {
+                    authResult.setValue(user.getObjectId());
+                    Log.d("AuthProvider", "Login exitoso: " + user.getObjectId());
                 } else {
-                    if (task.getException() != null) {
-                        Log.e("AuthProvider", "Error de autenticación", task.getException());
-                            authResult.setValue(null);
-                        }
-                    }
+                    authResult.setValue(null);
+                    Log.d("AuthProvider", "Login fallido: " + e.getMessage());
                 }
         });
         return authResult;
     }
 
-    // Iniciar Sesión en Firebase
-    public LiveData<String> singIn(String email, String password) {
-        return helperAuth(firebaseAuth.signInWithEmailAndPassword(email, password));
+    //Registro con Parse
+    public LiveData<String> singUp(User user) {
+        MutableLiveData<String> authResult = new MutableLiveData<>();
+        ParseUser userParse = new ParseUser();
+        userParse.setUsername(user.getUserName());
+        userParse.setEmail(user.getUserEmail());
+        userParse.setPassword(user.getUserpassword());
+        userParse.signUpInBackground(e -> {
+            if (e == null) {
+                authResult.setValue(userParse.getObjectId());
+                Log.d("AuthProvider", "Registro exitoso: " + userParse.getObjectId());
+            } else {
+                authResult.setValue(null);
+                Log.d("AuthProvider", "Registro fallido: " + e.getMessage());
+            }
+        });
+        return authResult;
     }
 
-    // Crear Cuenta en Firebase
+    //Registro con Parse VIEJO
+    /*
     public LiveData<String> singUp(String email, String password) {
-        return helperAuth(firebaseAuth.createUserWithEmailAndPassword(email, password));
+        MutableLiveData<String> authResult = new MutableLiveData<>();
+        ParseUser user = new ParseUser();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.signUpInBackground(e -> {
+            if (e == null) {
+                authResult.setValue(user.getObjectId());
+                Log.d("AuthProvider", "Registro exitoso: " + user.getObjectId());
+            } else {
+                authResult.setValue(null);
+                Log.d("AuthProvider", "Registro fallido: " + e.getMessage());
+            }
+
+        });
+        return authResult;
     }
-    public String getCurrentUserId() {
-        return firebaseAuth.getCurrentUser() != null? firebaseAuth.getCurrentUser().getUid():null;
+    */
+
+    //Obtener el ID del usuario actual en Parse
+    public LiveData<String> getCurrentUserId() {
+        MutableLiveData<String> currentUserId = new MutableLiveData<>();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null) {
+            currentUserId.setValue(currentUser.getObjectId());
+            Log.d("AuthProvider", "ID del usuario actual: " + currentUser.getObjectId());
+        } else {
+            Log.d("AuthProvider", "No hay un usuario autenticado");
+//            currentUserId.setValue(null);
+        }
+        return currentUserId;
     }
+
+    //Cerrar sesion
+    public LiveData<Boolean> singOut() {
+        MutableLiveData<Boolean> authResult = new MutableLiveData<>();
+        ParseUser.logOut();
+        authResult.setValue(true);
+        return authResult;
+    }
+
+    public LiveData<Boolean> logOut() {
+        MutableLiveData<Boolean> logoutResult = new MutableLiveData<>();
+        ParseUser.logOutInBackground(e -> {
+            if (e == null) {
+                logoutResult.setValue(true);
+                Log.d("AuthProvider", "Caché eliminada y usuario desconectado.");
+            } else {
+                logoutResult.setValue(false);
+                Log.e("AuthProvider", "Error al desconectar al usuario: ", e);
+            }
+        });
+        return logoutResult; }
 }
+
+

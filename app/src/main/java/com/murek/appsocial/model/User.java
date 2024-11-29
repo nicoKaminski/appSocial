@@ -5,18 +5,13 @@ public class User {
     private String userName;
     private String userEmail;
     private String userpassword;
+    private String userImage;
+    private String intereses;
 
     public User() {
     }
 
     public User(String userName, String userEmail, String userPassword) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userpassword = userPassword;
-    }
-
-    public User(String id, String userName, String userEmail, String userPassword) {
-        this.userId = id;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userpassword = userPassword;
@@ -52,5 +47,21 @@ public class User {
 
     public void setUserpassword(String userpassword) {
         this.userpassword = userpassword;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
+    }
+
+    public String getIntereses() {
+        return intereses;
+    }
+
+    public void setIntereses(String intereses) {
+        this.intereses = intereses;
     }
 }

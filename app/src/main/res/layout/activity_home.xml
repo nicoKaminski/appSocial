@@ -9,11 +9,11 @@
     android:fitsSystemWindows="true"
     tools:context=".view.HomeActivity">
 
-        <!--Contenedor del Fragment-->
-        <FrameLayout
-            android:id="@+id/fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <!--Contenedor del Fragment-->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <!--Barra de navegación-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -25,5 +25,5 @@
             app:itemIconTint="@color/colorAccent"
             app:itemTextColor="@color/colorAccent"
             app:menu="@menu/bottom_navigation_menu" />
-
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

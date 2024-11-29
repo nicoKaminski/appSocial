@@ -1,6 +1,5 @@
 package com.murek.appsocial.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -21,7 +20,6 @@ import com.murek.appsocial.view.fragments.PerfilFragment;
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
-//    final int HOME = R.id.navItemHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

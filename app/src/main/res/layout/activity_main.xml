@@ -121,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="100dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -141,14 +142,6 @@
             </TextView>
         </LinearLayout>
 
-        <!--Barra de navegación (PARA PROBAR)-->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_alignParentBottom="true"
-            app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

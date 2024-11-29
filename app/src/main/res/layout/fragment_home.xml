@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.HomeFragment"
-    android:layout_marginBottom="50dp">
+    android:layout_marginBottom="80dp"
+    tools:context=".view.fragments.HomeFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/colorPrimaryDark"/>
+        <!-- Barra de titulo -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
 
-</FrameLayout>
+            <!--Texto Titulo-->
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/mis_experiencias"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="28sp" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/btnAdd"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="30dp"
+            android:src="@drawable/ic_add"/>
+    </FrameLayout>

@@ -8,8 +8,12 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.murek.appsocial.R;
+import com.murek.appsocial.databinding.FragmentChatsBinding;
+
 
 public class ChatsFragment extends Fragment {
+
+    private FragmentChatsBinding binding;
 
     public ChatsFragment() {}
 

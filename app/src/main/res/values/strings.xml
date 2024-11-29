@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">appSocial</string>
+    <string name="app_name">AppSocial</string>
+    <string name="chats">Chats</string>
+    <string name="perfil">Perfil</string>
+    <string name="filtros">Filtros</string>
+    <string name="mis_experiencias">Mis Experiencias</string>
+    <!-- Post -->
+    <string name="lugar">Lugar que visitaste...</string>
+    <string name="titulo_post">¡Sube tu experiencia!</string>
+    <string name="image_description">Describe tu imagen...</string>
+    <string name="descripcion">Cuenta que hicistes!...</string>
+    <string name="duracion">Duracion del viaje (ej. 3 días)...</string>
+    <string name="presupuesto">Presupuesto estimado (USD)...</string>
+    <string name="publicar">Publicar</string>
+
+    <string-array name="categorias">
+        <item>Naturaleza</item>
+        <item>Playa</item>
+        <item>Montañas</item>
+        <item>Desierto</item>
+        <item>Mar</item>
+        <item>lago</item>
+        <item>Bosque</item>
+        <item>Overland</item>
+        <item>Nieve</item>
+    </string-array>
+
+    <string name="back4app_server_url">https://parseapi.back4app.com</string>
+    <string name="back4app_app_id">iLeodN5k4eHybiaRmFxwFzWzLyNJI0xlZ5UEH85m</string>
+    <string name="back4app_client_key">AS3A1Pe7T696KBEyQPMnOo7gnm49REh73heh2kFl</string>
+
 </resources>
