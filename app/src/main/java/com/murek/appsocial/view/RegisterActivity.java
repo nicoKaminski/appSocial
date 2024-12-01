@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.murek.appsocial.databinding.ActivityRegistrerBinding;
@@ -24,6 +25,12 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegistrerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+        viewModel.getRegisterResult().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String result) {
+                showToast(result);
+            }
+        });
         manejarEventos();
     }
 
@@ -84,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
-        finish();
+//        finish();
     }
 
     private void limpiar() {

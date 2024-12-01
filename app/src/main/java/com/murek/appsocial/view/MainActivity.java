@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.murek.appsocial.databinding.ActivityMainBinding;
+import com.murek.appsocial.providers.AuthProvider;
 import com.murek.appsocial.util.Validaciones;
 import com.murek.appsocial.viewModel.MainViewModel;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+//        authProvider=new AuthProvider(this);  //Con error
         manejarEventos();
     }
 
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         binding.tvRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(MainActivity.this, RegisterActivity.class));
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // observar el resultado del login
                 viewModel.login(email, password).observe(MainActivity.this, logingOk -> {
-                    if (logingOk != null && logingOk) {
-                        //startActivity(new Intent(MainActivity.this, UserActivity.class));
+                    if (logingOk != null) {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
                     } else {

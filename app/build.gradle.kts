@@ -48,8 +48,11 @@ dependencies {
         implementation("androidx.appcompat:appcompat:1.7.0")
         implementation("com.google.android.material:material:1.12.0")
         implementation("androidx.activity:activity-ktx:1.7.2")
+        implementation("androidx.activity:activity:1.7.2")
+        implementation("androidx.fragment:fragment-ktx:1.6.0")
         implementation("androidx.constraintlayout:constraintlayout:2.1.4")
         implementation("androidx.cardview:cardview:1.0.0") // Usar CardView de AndroidX
+        implementation ("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
         implementation("androidx.recyclerview:recyclerview:1.2.1") // Usar RecyclerView de AndroidX
         // Dependencias de testing
         testImplementation("junit:junit:4.13.2")
@@ -59,6 +62,8 @@ dependencies {
         implementation("com.github.bumptech.glide:glide:4.12.0")
         annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
         implementation ("com.squareup.picasso:picasso:2.71828")
+        //circle image view
+        implementation ("de.hdodenhof:circleimageview:3.1.0")
         // ShapeOfView
         implementation("io.github.florent37:shapeofview:1.4.7")
         // Parse SDK

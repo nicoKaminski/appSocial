@@ -13,8 +13,6 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-
-
 public class AuthProvider {
 
     public AuthProvider() {
@@ -100,13 +98,6 @@ public class AuthProvider {
     }
 
     //Cerrar sesion
-    public LiveData<Boolean> singOut() {
-        MutableLiveData<Boolean> authResult = new MutableLiveData<>();
-        ParseUser.logOut();
-        authResult.setValue(true);
-        return authResult;
-    }
-
     public LiveData<Boolean> logOut() {
         MutableLiveData<Boolean> logoutResult = new MutableLiveData<>();
         ParseUser.logOutInBackground(e -> {

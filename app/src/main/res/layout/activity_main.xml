@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -26,10 +27,10 @@
             </View>
 
             <ImageView
-                android:layout_width="220dp"
+                android:layout_width="320dp"
                 android:layout_height="180dp"
                 android:layout_gravity="center|top"
-                android:src="@drawable/opticdev_gray">
+                android:src="@drawable/login_white">
             </ImageView>
         </io.github.florent37.shapeofview.shapes.DiagonalView>
 
@@ -141,7 +142,6 @@
                 android:textStyle="bold">
             </TextView>
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

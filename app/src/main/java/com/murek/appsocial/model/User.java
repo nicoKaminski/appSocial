@@ -5,7 +5,7 @@ public class User {
     private String userName;
     private String userEmail;
     private String userpassword;
-    private String userImage;
+    private String userFotoPerfil;
     private String intereses;
 
     public User() {
@@ -15,6 +15,13 @@ public class User {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userpassword = userPassword;
+    }
+
+    public User(String userId, String userName, String userEmail, String userpassword) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userpassword = userpassword;
     }
 
     public String getUserId() {
@@ -49,12 +56,12 @@ public class User {
         this.userpassword = userpassword;
     }
 
-    public String getUserImage() {
-        return userImage;
+    public String getUserFotoPerfil() {
+        return userFotoPerfil;
     }
 
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
+    public void setUserFotoPerfil(String userFotoPerfil) {
+        this.userFotoPerfil = userFotoPerfil;
     }
 
     public String getIntereses() {

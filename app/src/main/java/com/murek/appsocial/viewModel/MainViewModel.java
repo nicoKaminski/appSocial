@@ -13,10 +13,10 @@ public class MainViewModel extends ViewModel {
         authProvider = new AuthProvider();
     }
 
-    public LiveData<Boolean> login(String email, String password) {
-        MutableLiveData<Boolean> loginResult = new MutableLiveData<>();
+    public LiveData<String> login(String email, String password){
+        MutableLiveData<String> loginResult = new MutableLiveData<>();
         authProvider.singIn(email, password).observeForever(userId -> {
-            loginResult.setValue(userId != null);
+            loginResult.setValue(userId);
         });
         return loginResult;
     }

@@ -25,93 +25,174 @@
             android:padding="20dp"
             android:background="@drawable/border">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/titulo_post"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="30dp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/circuloBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_back_dark" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/titulo_post"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="30dp" />
+
+            </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/uploadImage"
                 android:layout_width="150dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/upload_img"/>
 
-            <EditText
-                android:id="@+id/etUploadTitulo"
+            <!-- Título -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="@string/lugar"
-                android:textSize="16dp"
-                android:layout_gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundMode="none"
                 android:background="@drawable/border"
-                android:textColorHint="@color/colorPrimaryDark"/>
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUploadTitulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/lugar"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        />
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etUploadDescripcion"
+            <!-- Descripción -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_gravity="start|center_vertical"
                 android:layout_marginTop="7dp"
-                android:background="@drawable/border"
-                android:hint="@string/descripcion"
-                android:padding="16dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:textSize="16dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundMode="none"
+                android:background="@drawable/border">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:padding="16dp"
-                android:hint="**aca va la categoria**"
-                android:textSize="16dp"
-                android:layout_gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"
-                android:background="@drawable/border"
-                android:textColorHint="@color/colorPrimaryDark"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
 
-            <EditText
-                android:id="@+id/etUploadDuracion"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:padding="16dp"
-                android:hint="@string/duracion"
-                android:textSize="16dp"
-                android:layout_gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"
-                android:background="@drawable/border"
-                android:textColorHint="@color/colorPrimaryDark"/>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUploadDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/descripcion"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etUploadPresupuesto"
+            <!-- Categoría -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:padding="16dp"
-                android:hint="@string/presupuesto"
-                android:textSize="16dp"
-                android:layout_gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"
-                android:background="@drawable/border"
-                android:textColorHint="@color/colorPrimaryDark"/>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundMode="none"
+                android:background="@drawable/border">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCategoria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/categoria"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Duración -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundMode="none"
+                android:background="@drawable/border">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUploadDuraciona"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/duracion"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Presupuesto -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxBackgroundMode="none"
+                android:background="@drawable/border">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUploadPresupuesto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/presupuesto"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorPrimaryDark" />
+                </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnUploadPost"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/publicar"
                 android:textSize="22dp"
                 android:textColor="@color/colorAccent"

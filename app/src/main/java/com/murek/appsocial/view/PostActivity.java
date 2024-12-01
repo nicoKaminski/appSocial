@@ -18,15 +18,18 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.murek.appsocial.R;
 import com.murek.appsocial.adapters.ImageAdapter;
 import com.murek.appsocial.databinding.ActivityPostBinding;
+import com.murek.appsocial.databinding.ActivityRegistrerBinding;
 import com.murek.appsocial.model.Post;
 import com.murek.appsocial.util.Validaciones;
 import com.murek.appsocial.viewModel.PostViewModel;
+import com.murek.appsocial.viewModel.RegisterViewModel;
 import com.parse.ParseFile;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +40,7 @@ import java.util.List;
 public class PostActivity extends AppCompatActivity {
 
     private ActivityPostBinding binding;
-    private PostViewModel postViewModel;
+    private PostViewModel viewModel;
     private static final int REQUEST_IMAGE = 1;
     private List<String> imagenesUrl = new ArrayList<>();
     private String categoria;
@@ -50,6 +53,18 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        viewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        manejarEventos();
+    }
+
+    private void manejarEventos() {
+        // Boton volver atras
+        binding.circuloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setupRecyclerView() {

@@ -9,6 +9,7 @@
     <string name="titulo_post">¡Sube tu experiencia!</string>
     <string name="image_description">Describe tu imagen...</string>
     <string name="descripcion">Cuenta que hicistes!...</string>
+    <string name="categoria">Categoría...</string>
     <string name="duracion">Duracion del viaje (ej. 3 días)...</string>
     <string name="presupuesto">Presupuesto estimado (USD)...</string>
     <string name="publicar">Publicar</string>

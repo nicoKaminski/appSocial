@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.murek.appsocial.model.User;
 import com.murek.appsocial.providers.AuthProvider;
+import com.parse.ParseUser;
 
 public class RegisterViewModel extends ViewModel {
     private AuthProvider authProvider;
@@ -19,6 +20,8 @@ public class RegisterViewModel extends ViewModel {
         return registerResult;
     }
 
+    /*
+    // metodo anterior
     public void register(User user) {
         authProvider = new AuthProvider();
         authProvider.singUp(user).observeForever(new Observer<String>() {
@@ -28,5 +31,21 @@ public class RegisterViewModel extends ViewModel {
             }
         });
     }
+    */
+
+    public void register(User user) {
+        ParseUser parseUser = new ParseUser();
+        parseUser.setUsername(user.getUserName());
+        parseUser.setEmail(user.getUserEmail());
+        parseUser.setPassword(user.getUserpassword());
+        parseUser.signUpInBackground(e -> {
+            if (e == null) {
+                registerResult.setValue(parseUser.getObjectId());
+            } else {
+                registerResult.setValue(null);
+            }
+        });
+    }
+
 }
 
