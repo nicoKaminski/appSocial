@@ -43,7 +43,7 @@ public class AuthProvider {
         return authResult;
     }
 
-    //Registro con Parse
+    //Logeo con Parse
     public LiveData<String> singUp(User user) {
         MutableLiveData<String> authResult = new MutableLiveData<>();
         ParseUser userParse = new ParseUser();
@@ -62,7 +62,7 @@ public class AuthProvider {
         return authResult;
     }
 
-    //Registro con Parse VIEJO
+    //Logeo con Parse VIEJO
     /*
     public LiveData<String> singUp(String email, String password) {
         MutableLiveData<String> authResult = new MutableLiveData<>();

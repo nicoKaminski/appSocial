@@ -1,5 +1,7 @@
 package com.murek.appsocial.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,6 +18,7 @@ public class PostViewModel extends ViewModel {
 
 
     public PostViewModel() {
+        postList = new MutableLiveData<>();
         postProvider = new PostProvider();
     }
 
@@ -34,6 +37,8 @@ public class PostViewModel extends ViewModel {
     }
 
     public LiveData<List<Post>> getPostList() {
+        postList = postProvider.getPostByCurrentUser();
+        Log.d("PostViewModel", "getPostList called");
         return postList;
     }
 

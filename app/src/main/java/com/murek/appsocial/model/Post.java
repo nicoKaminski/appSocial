@@ -12,7 +12,7 @@ public class Post {
     private List<String> imagenes;
 
     //constructor 1
-    public Post(String titulo, String descripcion, int duracion, double presupuesto, String categoria) {
+    public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
@@ -21,7 +21,7 @@ public class Post {
     }
 
     //constructor 2
-    public Post(String titulo, String descripcion, int duracion, double presupuesto, String categoria, List<String> imagenes) {
+    public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto,  List<String> imagenes) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;

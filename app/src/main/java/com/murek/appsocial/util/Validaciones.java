@@ -35,4 +35,5 @@ public class Validaciones {
     public static boolean validarNumero(String numero) {
         return numero != null && !numero.isEmpty() && numero.matches("[0-9]+");
     }
+
 }

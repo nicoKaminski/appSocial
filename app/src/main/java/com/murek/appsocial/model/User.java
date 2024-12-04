@@ -6,7 +6,7 @@ public class User {
     private String userEmail;
     private String userpassword;
     private String userFotoPerfil;
-    private String intereses;
+    private String[] intereses;
 
     public User() {
     }
@@ -64,11 +64,11 @@ public class User {
         this.userFotoPerfil = userFotoPerfil;
     }
 
-    public String getIntereses() {
+    public String[] getIntereses() {
         return intereses;
     }
 
     public void setIntereses(String intereses) {
-        this.intereses = intereses;
+        this.intereses = new String[]{intereses};
     }
 }

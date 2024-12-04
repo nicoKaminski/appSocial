@@ -47,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.btRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               realizarRegistro();
+                realizarRegistro();
                 limpiar();
             }
         });

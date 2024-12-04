@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.murek.appsocial"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.murek.appsocial"
@@ -40,9 +40,11 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.activity)
+    implementation(libs.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 
     dependencies {
         implementation("androidx.appcompat:appcompat:1.7.0")
@@ -62,6 +64,10 @@ dependencies {
         implementation("com.github.bumptech.glide:glide:4.12.0")
         annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
         implementation ("com.squareup.picasso:picasso:2.71828")
+        // Scroll
+        implementation ("androidx.core:core:1.7.0")
+        implementation ("androidx.core:core-ktx:1.7.0")
+        implementation ("androidx.core:core-splashscreen:1.0.0")
         //circle image view
         implementation ("de.hdodenhof:circleimageview:3.1.0")
         // ShapeOfView
