@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.murek.appsocial.R;
 import com.murek.appsocial.adapters.ImageAdapter;
 import com.murek.appsocial.databinding.ActivityPostBinding;
 import com.murek.appsocial.model.Post;
@@ -84,11 +87,25 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void setupCategorySpinner() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categorias));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spCategoria.setAdapter(adapter);
+
+        binding.spCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                categoria = parent.getItemAtPosition(position).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                categoria = null;
+            }
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void setupGalleryLauncher() {
-
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                 Uri imageUri = result.getData().getData();
@@ -115,6 +132,7 @@ public class PostActivity extends AppCompatActivity {
         binding.uploadImage.setOnClickListener(v -> {
             Log.d("PostActivity", "Botón de subir imagen clickeado");
             ImageUtils.pedirPermisos(PostActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMAGE);
+            ImageUtils.openGallery(PostActivity.this, galleryLauncher);
         });
     }
 
