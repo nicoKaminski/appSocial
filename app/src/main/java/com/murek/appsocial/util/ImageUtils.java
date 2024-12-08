@@ -3,6 +3,7 @@ package com.murek.appsocial.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.provider.MediaStore;
 import android.net.Uri;
 import android.os.Build;
@@ -85,6 +86,17 @@ public class ImageUtils {
         void onSuccess(String imageUrl);
 
         void onFailure(Exception e);
+    }
+
+    public static String getRealPathFromURI(Context context, Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) return null;
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String path = cursor.getString(column_index);
+        cursor.close();
+        return path;
     }
 
 }// fin

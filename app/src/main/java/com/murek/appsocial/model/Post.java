@@ -1,6 +1,10 @@
 package com.murek.appsocial.model;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
 import java.util.List;
+
 
 public class Post {
     private int idPost;
@@ -9,7 +13,11 @@ public class Post {
     private int duracion;
     private String categoria;
     private double presupuesto;
-    private List<String> imagenes;
+    private List<String> imagen;
+    private User user;
+
+    public Post() {
+    }
 
     //constructor 1
     public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto) {
@@ -21,14 +29,26 @@ public class Post {
     }
 
     //constructor 2
-    public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto,  List<String> imagenes) {
+    public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto,  List<String> imagen) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.duracion = duracion;
         this.presupuesto = presupuesto;
         this.categoria = categoria;
-        this.imagenes = imagenes;
+        this.imagen = imagen;
     }
+
+    // CON USER
+    public Post(User user, String titulo, String descripcion, int duracion, String categoria, double presupuesto,  List<String> imagen) {
+        this.user = user;
+        this.imagen = imagen;
+        this.presupuesto = presupuesto;
+        this.categoria = categoria;
+        this.duracion = duracion;
+        this.descripcion = descripcion;
+        this.titulo = titulo;
+    }
+
 
     public int getIdPost() {
         return idPost;
@@ -78,12 +98,20 @@ public class Post {
         this.presupuesto = presupuesto;
     }
 
-    public List<String> getImagenes() {
-        return imagenes;
+    public List<String> getImagen() {
+        return imagen;
     }
 
-    public void setImagenes(List<String> imagenes) {
-        this.imagenes = imagenes;
+    public void setImagen(List<String> imagen) {
+        this.imagen = imagen;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

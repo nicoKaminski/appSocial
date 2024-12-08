@@ -4,6 +4,7 @@ package com.murek.appsocial.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -26,9 +28,12 @@ import com.murek.appsocial.R;
 import com.murek.appsocial.adapters.ImageAdapter;
 import com.murek.appsocial.databinding.ActivityPostBinding;
 import com.murek.appsocial.model.Post;
+import com.murek.appsocial.model.User;
 import com.murek.appsocial.util.ImageUtils;
 import com.murek.appsocial.util.Validaciones;
 import com.murek.appsocial.viewModel.PostViewModel;
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +44,7 @@ public class PostActivity extends AppCompatActivity {
     private PostViewModel viewModel;
     private static final int MAX_IMAGES = 3;
     private final int REQUEST_IMAGE = 1;
-    private final List<String> imagenesUrl = new ArrayList<>();
+    private final List<String> imagenUrl = new ArrayList<>();
     private String categoria;
     private ImageAdapter adapter;
     private ActivityResultLauncher<Intent> galleryLauncher;
@@ -69,7 +74,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        adapter = new ImageAdapter(imagenesUrl, this);
+        adapter = new ImageAdapter(imagenUrl, this);
         binding.recyclerViewPost.setLayoutManager(new GridLayoutManager(this, 3));
         binding.recyclerViewPost.setAdapter(adapter);
         updateRecyclerViewVisibility();
@@ -109,12 +114,12 @@ public class PostActivity extends AppCompatActivity {
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                 Uri imageUri = result.getData().getData();
-                if (imageUri != null && imagenesUrl.size() < MAX_IMAGES) {
+                if (imageUri != null && imagenUrl.size() < MAX_IMAGES) {
                     ImageUtils.subirImagenAParse(PostActivity.this, imageUri, new ImageUtils.ImageUploadCallback() {
                         @Override
                         public void onSuccess(String imageUrl) {
                             Log.d("PostActivity", "Imagen subida con éxito: " + imageUrl);
-                            imagenesUrl.add(imageUrl);
+                            imagenUrl.add(imageUrl);
                             adapter.notifyDataSetChanged();
                             updateRecyclerViewVisibility();
                         }
@@ -124,7 +129,7 @@ public class PostActivity extends AppCompatActivity {
                             Toast.makeText(PostActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
                     }
                     });
-                } else if (imagenesUrl.size() >= MAX_IMAGES) {
+                } else if (imagenUrl.size() > MAX_IMAGES) {
                     Toast.makeText(PostActivity.this, "No puedes subir mas de 3 imagenes", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -166,23 +171,35 @@ public class PostActivity extends AppCompatActivity {
             return;
         }
 
-        Post post = new Post(titulo, descripcion, Integer.parseInt(duracion), categoria, presupuestoValido, new ArrayList<>(imagenesUrl));
+//        User user = ParseUser.getCurrentUser();
+        Post post = new Post(titulo, descripcion, Integer.parseInt(duracion), categoria, presupuestoValido, new ArrayList<>(imagenUrl));
         viewModel.publicarPost(post);
     }
 
     private void updateRecyclerViewVisibility() {
-        boolean hasImages = !imagenesUrl.isEmpty();
+        boolean hasImages = !imagenUrl.isEmpty();
         binding.recyclerViewPost.setVisibility(hasImages ? View.VISIBLE : View.GONE);
         binding.uploadImage.setVisibility(hasImages ? View.GONE : View.VISIBLE);
     }
 
-    public void onRequestPermissionsResult (int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+//    public void onRequestPermissionsResult (int requestCode, String[] permissions, int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    }
 
     private void showToast(String message) {
         Toast.makeText(PostActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d("PostActivity", "onRequestPermissionsResult ejecutado");
+        if (requestCode == REQUEST_IMAGE && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.d("PostActivity", "Permiso concedido, abriendo galería");
+            ImageUtils.openGallery(PostActivity.this, galleryLauncher);
+        } else {
+            Log.d("PostActivity", "Permiso denegado");
+            Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

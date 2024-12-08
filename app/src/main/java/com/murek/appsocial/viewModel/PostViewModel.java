@@ -37,7 +37,7 @@ public class PostViewModel extends ViewModel {
     }
 
     public LiveData<List<Post>> getPostList() {
-        postList = postProvider.getPostByCurrentUser();
+        postList = postProvider.getAllPosts();
         Log.d("PostViewModel", "getPostList called");
         return postList;
     }

@@ -1,5 +1,7 @@
 package com.murek.appsocial.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -15,6 +17,10 @@ public class RegisterViewModel extends ViewModel {
 
     public RegisterViewModel() {
     }
+
+//    public RegisterViewModel{
+//        this.authProvider = new AuthProvider();
+//    }
 
     public LiveData<String> getRegisterResult() {
         return registerResult;
@@ -41,8 +47,10 @@ public class RegisterViewModel extends ViewModel {
         parseUser.signUpInBackground(e -> {
             if (e == null) {
                 registerResult.setValue(parseUser.getObjectId());
+                Log.d("AuthProvider", "Registro exitoso: " + parseUser.getObjectId());
             } else {
                 registerResult.setValue(null);
+                Log.e("AuthProvider", "Error en el registro: " + e.getMessage());
             }
         });
     }

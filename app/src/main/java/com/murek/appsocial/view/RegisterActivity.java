@@ -1,5 +1,6 @@
 package com.murek.appsocial.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -36,11 +37,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void manejarEventos() {
         // Boton volver atras
-        binding.circuloBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
+//        binding.circuloBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+        binding.circuloBack.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         });
 
         // Evento registrar
@@ -48,7 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 realizarRegistro();
-                limpiar();
             }
         });
     }
@@ -87,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         viewModel.getRegisterResult().observe(this, result -> {
             showToast(result);
         });
+        limpiar();
     }
 
     private void showToast(String message) {

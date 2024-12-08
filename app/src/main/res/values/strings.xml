@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AppSocial</string>
     <string name="chats">Chats</string>
-    <string name="perfil">Perfil</string>
+    <string name="perfil">Tu Perfil</string>
     <string name="filtros">Filtros</string>
     <string name="mis_experiencias">Mis Experiencias</string>
     <!-- Post -->
@@ -13,6 +13,12 @@
     <string name="duracion">Duracion del viaje (ej. 3 días)...</string>
     <string name="presupuesto">Presupuesto estimado (USD)...</string>
     <string name="publicar">Publicar</string>
+
+    <!-- varios -->
+    <string name="cargando">Cargando...</string>
+    <string name="redsocial">Instagram</string>
+    <string name="publicaciones">PUBLICACIONES</string>
+
 
     <string-array name="categorias">
         <item>Naturaleza</item>

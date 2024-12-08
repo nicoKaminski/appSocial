@@ -1,5 +1,9 @@
 package com.murek.appsocial.model;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
+
 public class User {
     private String userId;
     private String userName;
