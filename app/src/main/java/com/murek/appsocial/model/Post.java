@@ -1,117 +1,111 @@
 package com.murek.appsocial.model;
 
+import android.os.Bundle;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class Post {
-    private int idPost;
-    private String titulo;
-    private String descripcion;
-    private int duracion;
-    private String categoria;
-    private double presupuesto;
-    private List<String> imagen;
-    private User user;
+@ParseClassName("Post")
+public class Post extends ParseObject {
+//    private int idPost;
+//    private String titulo;
+//    private String descripcion;
+//    private int duracion;
+//    private String categoria;
+//    private double presupuesto;
+//    private List<String> imagen;
+//    private User user;
 
     public Post() {
     }
 
-    //constructor 1
-    public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.duracion = duracion;
-        this.categoria = categoria;
-        this.presupuesto = presupuesto;
+
+    public String getIdPost() {
+        return getObjectId();
     }
 
-    //constructor 2
-    public Post(String titulo, String descripcion, int duracion, String categoria, double presupuesto,  List<String> imagen) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.duracion = duracion;
-        this.presupuesto = presupuesto;
-        this.categoria = categoria;
-        this.imagen = imagen;
+    public String getTituloPost() {
+        return getString("titulo");
     }
 
-    // CON USER
-    public Post(User user, String titulo, String descripcion, int duracion, String categoria, double presupuesto,  List<String> imagen) {
-        this.user = user;
-        this.imagen = imagen;
-        this.presupuesto = presupuesto;
-        this.categoria = categoria;
-        this.duracion = duracion;
-        this.descripcion = descripcion;
-        this.titulo = titulo;
+    public void setTituloPost(String titulo) {
+        put("titulo", titulo);
     }
 
-
-    public int getIdPost() {
-        return idPost;
+    public String getDescripcionPost() {
+        return getString("descripcion");
     }
 
-    public void setIdPost(int idPost) {
-        this.idPost = idPost;
+    public void setDescripcionPost(String descripcion) {
+        put("descripcion", descripcion);
     }
 
-    public String getTitulo() {
-        return titulo;
+    public int getDuracionPost() {
+        return getInt("duracion");
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setDuracionPost(int duracion) {
+        put("duracion", duracion);
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getCategoriaPost() {
+        return getString("categoria");
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setCategoriaPost(String categoria) {
+        put("categoria", categoria);
     }
 
-    public int getDuracion() {
-        return duracion;
+    public double getPresupuestoPost() {
+        return getDouble("presupuesto");
     }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
+    public void setPresupuestoPost(double presupuesto) {
+        put("presupuesto", presupuesto);
     }
 
-    public String getCategoria() {
-        return categoria;
+    public List<String> getImagenPost() {
+        return getList("imagenes");
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public double getPresupuesto() {
-        return presupuesto;
-    }
-
-    public void setPresupuesto(double presupuesto) {
-        this.presupuesto = presupuesto;
-    }
-
-    public List<String> getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(List<String> imagen) {
-        this.imagen = imagen;
+    public void setImagenPost(List<String> imagen) {
+        put("imagenes", imagen);
     }
 
     public User getUser() {
-        return user;
+        return (User)getParseObject("user");
     }
 
     public void setUser(User user) {
-        this.user = user;
+        put("user", user);
+    }
+
+    // Método para exportar los datos del post como un Bundle
+    public Bundle toBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putString("titulo", getTituloPost());
+        bundle.putString("descripcion", getDescripcionPost());
+        bundle.putString("categoria", getCategoriaPost());
+        bundle.putInt("duracion", getDuracionPost());
+        bundle.putDouble("presupuesto", getPresupuestoPost());
+
+        // Datos del Usuario
+        User user = getUser();
+        if (user != null) {
+            bundle.putString("username", user.getUserName());
+            bundle.putString("email", user.getUserEmail());
+            bundle.putString("fotoperfil", user.getString("foto_perfil"));
+        }
+
+        // Lista de imágenes
+        bundle.putStringArrayList("imagenes", new ArrayList<>(getImagenPost()));
+        return bundle;
     }
 
 }
+
+

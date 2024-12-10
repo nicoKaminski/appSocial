@@ -46,35 +46,37 @@
                 android:gravity="center"
                 tools:ignore="RtlHardcoded">
 
+                <!--Nombre de Usuario-->
                 <TextView
                     android:id="@+id/nameUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/redsocial"
+                    android:hint="Nombre"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="12sp" />
 
+                <!--Email de Usuario-->
                 <TextView
                     android:id="@+id/emailUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/redsocial"
+                    android:hint="Mail"
                     android:textColor="@color/white"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     tools:ignore="TextSizeCheck" />
+
+                <!--RS de Usuario-->
                 <TextView
                     android:id="@+id/insta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/redsocial"
+                    android:hint="Instagram"
                     android:textColor="@color/white"
                     android:textSize="11sp"
                     android:textStyle="bold"
                     tools:ignore="TextSizeCheck" />
-
-
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -121,7 +123,8 @@
                 android:textColor="@color/colorGray"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:hint="@string/lugar"/>
 
             <TextView
                 android:id="@+id/categoria"
@@ -130,7 +133,8 @@
                 android:textColor="@color/colorGray"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:hint="@string/categoria"/>
 
             <TextView
                 android:id="@+id/description"
@@ -138,7 +142,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGray"
                 android:textSize="14sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:hint="@string/descripcion"/>
 
             <TextView
                 android:id="@+id/duracion"
@@ -146,7 +151,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGray"
                 android:textSize="14sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:hint="@string/duracion"/>
 
             <TextView
                 android:id="@+id/presupuesto"
@@ -154,7 +160,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorGray"
                 android:textSize="14sp"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:hint="@string/presupuesto"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

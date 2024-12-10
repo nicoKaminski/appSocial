@@ -29,7 +29,7 @@ public class Validaciones {
     }
 
     public static boolean validarTexto(String texto) {
-        return texto != null && !texto.isEmpty();
+        return texto != null && !texto.isEmpty() && texto.length() >= 3;
     }
 
     public static boolean validarNumero(String numero) {

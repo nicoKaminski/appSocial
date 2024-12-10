@@ -36,14 +36,14 @@ public class PostViewModel extends ViewModel {
         });
     }
 
-    public LiveData<List<Post>> getPostList() {
-        postList = postProvider.getAllPosts();
+    public LiveData<List<Post>> getPostList(int page) {
+        postList = postProvider.getAllPosts(page);
         Log.d("PostViewModel", "getPostList called");
         return postList;
     }
 
 
-    /* CODIGO VIEJO......
+    /** CODIGO VIEJO......
     public void uploadPost(Post post) {
         postProvider.addPost(post).observeForever(result -> {
             if ("Post publicado".equals(result)) {

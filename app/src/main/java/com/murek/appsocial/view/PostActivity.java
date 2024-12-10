@@ -59,7 +59,6 @@ public class PostActivity extends AppCompatActivity {
         setupCategorySpinner();
         setupGalleryLauncher();
         binding.btnUploadPost.setOnClickListener(v -> publicarPost());
-//        viewModel = new ViewModelProvider(this).get(PostViewModel.class);
         manejarEventos();
     }
 
@@ -102,6 +101,7 @@ public class PostActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 categoria = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 categoria = null;
@@ -127,7 +127,7 @@ public class PostActivity extends AppCompatActivity {
                         public void onFailure(Exception e) {
                             Log.e("PostActivity", "Error al subir la imagen: " + e.getMessage());
                             Toast.makeText(PostActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
-                    }
+                        }
                     });
                 } else if (imagenUrl.size() > MAX_IMAGES) {
                     Toast.makeText(PostActivity.this, "No puedes subir mas de 3 imagenes", Toast.LENGTH_SHORT).show();
@@ -148,18 +148,18 @@ public class PostActivity extends AppCompatActivity {
         String presupuesto = binding.etUploadPresupuesto.getText().toString().trim();
 
         //validar campos
-        if(!Validaciones.validarTexto(titulo)){
+        if (!Validaciones.validarTexto(titulo)) {
             binding.etUploadTitulo.setError("Titulo inválido");
             return;
         }
 
-        if(!Validaciones.validarTexto(descripcion)){
+        if (!Validaciones.validarTexto(descripcion)) {
             binding.etUploadDescripcion.setError("Descripcion inválida");
             return;
         }
 
         boolean duracionValida = Validaciones.validarNumero(String.valueOf(duracion));
-        if(duracionValida){
+        if (duracionValida) {
             binding.etUploadDescripcion.setError("Duración inválida");
         }
 
@@ -171,8 +171,14 @@ public class PostActivity extends AppCompatActivity {
             return;
         }
 
-//        User user = ParseUser.getCurrentUser();
-        Post post = new Post(titulo, descripcion, Integer.parseInt(duracion), categoria, presupuestoValido, new ArrayList<>(imagenUrl));
+//        Post post = new Post(titulo, descripcion, Integer.parseInt(duracion), categoria, presupuestoValido, new ArrayList<>(imagenUrl));
+        Post post=new Post();
+        post.setImagenPost(new ArrayList<>(imagenUrl));
+        post.setTituloPost(titulo);
+        post.setDescripcionPost(descripcion);
+        post.setDuracionPost(Integer.parseInt(duracion));
+        post.setCategoriaPost(categoria);
+        post.setPresupuestoPost(presupuestoValido);
         viewModel.publicarPost(post);
     }
 

@@ -35,7 +35,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         String imageUrl = imageUrls.get(position);
         Glide.with(context)
                 .load(imageUrl)
-                .into(holder.imageView);
+                .into(holder.imageView);// Asignar a la vista de imagen
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         ImageView imageView;
         public ImageViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView); // Asegúrate que esto coincida con tu layout
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

@@ -39,7 +39,8 @@ public class PerfilFragment extends Fragment {
     private FragmentPerfilBinding binding;
     private ActivityResultLauncher<Intent> galleryLauncher;
 
-    public PerfilFragment(){}
+    public PerfilFragment(){
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class PerfilFragment extends Fragment {
         if (currentUser != null) {
             binding.nameUser.setText(currentUser.getUsername());
             binding.emailUser.setText(currentUser.getEmail());
-            binding.insta.setText(currentUser.getString("instagram"));
+//            binding.insta.setText(currentUser.getString("instagram"));
 
             String fotoUrl = currentUser.getString("foto_perfil");
             if (fotoUrl != null) {

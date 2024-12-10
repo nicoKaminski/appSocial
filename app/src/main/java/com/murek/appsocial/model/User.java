@@ -4,75 +4,65 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 
-public class User {
-    private String userId;
-    private String userName;
-    private String userEmail;
-    private String userpassword;
-    private String userFotoPerfil;
-    private String[] intereses;
+@ParseClassName("User")
+public class User extends ParseObject {
+//    private String userId;
+//    private String userName;
+//    private String userEmail;
+//    private String userpassword;
+//    private String userFotoPerfil;
+//    private String[] intereses;
 
     public User() {
     }
 
-    public User(String userName, String userEmail, String userPassword) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userpassword = userPassword;
-    }
-
-    public User(String userId, String userName, String userEmail, String userpassword) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userpassword = userpassword;
-    }
-
     public String getUserId() {
-        return userId;
+        return getObjectId();
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        put("objectId", userId);
     }
 
     public String getUserName() {
-        return userName;
+        return getString("name");
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        put("name", userName);
     }
 
     public String getUserEmail() {
-        return userEmail;
+        return getString("email");
     }
 
     public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+        put("email", userEmail);
     }
 
     public String getUserpassword() {
-        return userpassword;
+        return getString("password");
     }
 
     public void setUserpassword(String userpassword) {
-        this.userpassword = userpassword;
+        put("password", userpassword);
     }
 
     public String getUserFotoPerfil() {
-        return userFotoPerfil;
+        return getString("foto_perfil");
     }
 
     public void setUserFotoPerfil(String userFotoPerfil) {
-        this.userFotoPerfil = userFotoPerfil;
+        put("foto_perfil", userFotoPerfil);
     }
 
-    public String[] getIntereses() {
-        return intereses;
+    public String getRedSocial() {
+        return getString("red_social");
     }
 
-    public void setIntereses(String intereses) {
-        this.intereses = new String[]{intereses};
+    public void setRedSocial(String redSocial) {
+        if (redSocial != null) {
+            put("red_social", redSocial);
+        }
     }
 }

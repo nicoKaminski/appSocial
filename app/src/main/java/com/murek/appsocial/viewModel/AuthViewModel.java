@@ -10,12 +10,11 @@ public class AuthViewModel extends ViewModel {
     private AuthProvider authProvider;
 
     public AuthViewModel() {
-        authProvider = new AuthProvider();
+        this.authProvider = new AuthProvider();
     }
 
     public LiveData<Boolean> logOut() {
         return authProvider.logOut();
     }
-
 
 }

@@ -28,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
         manejarEventos();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    /** Codigo Viejo...
     private void manejarEventos() {
         // Boton registrar
         binding.tvRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +71,40 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+        });
+    }*/
+
+    private void manejarEventos() {
+        // Boton registrar
+        binding.tvRegistrar.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+        // Boton iniciar sesion
+        binding.btIniciarSesion.setOnClickListener(v -> {
+                String email = binding.etMail.getText().toString().trim();
+                String password = binding.etPass.getText().toString().trim();
+
+                if (!Validaciones.validarEmail(email)) {
+                    showToast("Email inválido");
+                    return;
+                }
+
+                if (!Validaciones.controlarPassword(password)) {
+                    showToast("La contraseña es inválida");
+                    return;
+                }
+
+                // observar el resultado del login
+                viewModel.login(email, password).observe(this, logingOk -> {
+                    if (logingOk != null) {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    } else {
+                        showToast("Error al iniciar sesión");
+                    }
+                });
         });
     }
 

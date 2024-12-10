@@ -29,11 +29,13 @@ public class ImageUtils {
         ActivityCompat.requestPermissions(activity, permisos, requestCode);
     }
 
+    // abrir galería de imágenes
     public static void openGallery(Context context, ActivityResultLauncher<Intent> launcher) {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         launcher.launch(intent);
     }
 
+    // subir imagen a Parse
     public static void subirImagenAParse(Context context, Uri imageUri, ImageUploadCallback callback) {
         InputStream inputStream = null;
         try {
@@ -44,6 +46,7 @@ public class ImageUtils {
                 return;
             }
 
+            // Crear un objeto ParseFile con la imagen
             ParseFile parseFile = new ParseFile("image.jpg", bytes);
             parseFile.saveInBackground(new SaveCallback() {
                 @Override
@@ -88,6 +91,7 @@ public class ImageUtils {
         void onFailure(Exception e);
     }
 
+    // obtener la ruta real de una imagen
     public static String getRealPathFromURI(Context context, Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);

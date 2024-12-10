@@ -9,13 +9,14 @@ import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
 
+
 public class AppSocial extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
         Parse.enableLocalDatastore(this);
-//        ParseObject.registerSubclass(Post.class);
-//        ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Post.class);
+        ParseObject.registerSubclass(User.class);
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(getString(R.string.back4app_app_id))
                 .clientKey(getString(R.string.back4app_client_key))
@@ -25,7 +26,7 @@ public class AppSocial extends Application {
 
         ParseACL defaultACL = new ParseACL();
         defaultACL.setPublicReadAccess(true);
-        defaultACL.setPublicWriteAccess(true);
+        defaultACL.setPublicWriteAccess(false);
         ParseACL.setDefaultACL(defaultACL, true);
     }
 }

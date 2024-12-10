@@ -27,7 +27,7 @@ public class AuthProvider {
         );
     }
 
-    // metodo
+    // Logeo con Parse
     public LiveData<String> singIn(String email, String password) {
         MutableLiveData<String> authResult = new MutableLiveData<>();
         // para saber si la autenticacion fue exitosa
@@ -43,9 +43,20 @@ public class AuthProvider {
         return authResult;
     }
 
-    //Logeo con Parse
+    // Registro con Parse
     public LiveData<String> singUp(User user) {
         MutableLiveData<String> authResult = new MutableLiveData<>();
+
+        //validar
+        if (user.getUserName() == null || user.getUserEmail() == null || user.getUserpassword() == null) {
+            Log.e("AuthProvider", "Uno o más valores son nulos: " +
+                    "Username=" + user.getUserName() + ", " +
+                    "Password=" + user.getUserpassword() + ", " +
+                    "Email=" + user.getUserEmail());
+            authResult.setValue(null);
+            return authResult;
+        }
+
         ParseUser userParse = new ParseUser();
         userParse.setUsername(user.getUserName());
         userParse.setEmail(user.getUserEmail());
