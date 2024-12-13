@@ -64,12 +64,14 @@ dependencies {
         implementation("com.github.bumptech.glide:glide:4.12.0")
         annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
         implementation ("com.squareup.picasso:picasso:2.71828")
+        implementation ("me.relex:circleindicator:2.1.6")
         // Scroll
-        implementation ("androidx.core:core:1.7.0")
-        implementation ("androidx.core:core-ktx:1.7.0")
+        implementation ("androidx.core:core:1.10.0")
+        implementation ("androidx.core:core-ktx:1.15.0")
         implementation ("androidx.core:core-splashscreen:1.0.0")
         //circle image view
         implementation ("de.hdodenhof:circleimageview:3.1.0")
+        implementation ("org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0")
         // ShapeOfView
         implementation("io.github.florent37:shapeofview:1.4.7")
         // Parse SDK
@@ -82,6 +84,7 @@ dependencies {
         implementation ("androidx.viewpager2:viewpager2:1.0.0")
         implementation("com.github.bumptech.glide:glide:4.16.0")
         implementation("androidx.viewpager2:viewpager2:1.1.0")
+
 
     }
 }

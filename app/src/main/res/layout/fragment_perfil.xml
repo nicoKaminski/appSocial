@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorAccent"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:hint="Nombre"/>

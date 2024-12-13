@@ -114,11 +114,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         LiveData<Post> postDetailLiveData = postProvider.getPostDetail(post.getIdPost());
         postDetailLiveData.observe((LifecycleOwner) context, postDetail -> {
             if (postDetail != null) {
-                //Log.d("Postadapter", postDetail.getId() + postDetail.getTitulo());
                 Intent intent = new Intent(context, PostDetailActivity.class);
 
                 // Datos del Post
-                // Log.d("Postadapter", postDetail.getId() + postDetail.getTitulo());
                 intent.putExtra("idPost", post.getIdPost());
                 intent.putExtra("titulo", postDetail.getTituloPost());
                 intent.putExtra("descripcion", postDetail.getDescripcionPost());
@@ -151,12 +149,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     });
 }
 
-
 @Override
 public int getItemCount() {
     return posts.size();
 }
-
 
 public static class PostViewHolder extends RecyclerView.ViewHolder {
     TextView tvTitulo, tvDescripcion;

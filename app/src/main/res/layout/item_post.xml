@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/lugar"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:paddingBottom="8dp" />
 
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="@string/image_description"
         android:textSize="14sp"
+        android:textStyle="italic"
         android:paddingBottom="8dp" />
 
     <!-- Imagen 1 -->

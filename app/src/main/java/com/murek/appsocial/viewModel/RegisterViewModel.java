@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.murek.appsocial.model.User;
 import com.murek.appsocial.providers.AuthProvider;
-import com.parse.ParseUser;
 
 public class RegisterViewModel extends ViewModel {
     private AuthProvider authProvider;
@@ -50,15 +49,12 @@ public class RegisterViewModel extends ViewModel {
             @Override
             public void onChanged(String objectId) {
                 if (objectId != null) {
-
                     registerResult.setValue(objectId);
                     Log.d("RegisterViewModel", "Usuario registrado con ID: " + objectId);
                 } else {
-                    // Registration failed
                     registerResult.setValue(null);
                     Log.e("RegisterViewModel", "Error durante el registro.");
                 }
-
                 result.removeObserver(this);
             }
         });

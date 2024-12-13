@@ -20,6 +20,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
+                android:id="@+id/headerPostDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -93,6 +94,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="320dp"-->
+<!--                android:orientation="vertical">-->
+<!--                <org.imaginativeworld.whynotimagecarousel.ImageCarousel-->
+<!--                    android:id="@+id/carousel"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="256dp" />-->
+<!--                <com.google.android.material.tabs.TabLayout-->
+<!--                    android:id="@+id/tabLayout"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    app:tabIndicatorColor="@color/colorPrimary"-->
+<!--                    app:tabIndicatorHeight="4dp" />-->
+<!--            </LinearLayout>-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
@@ -115,12 +134,13 @@
                     app:tabIndicatorColor="@color/colorPrimary"
                     app:tabIndicatorHeight="4dp" />
             </LinearLayout>
+
             <!-- Post Details -->
             <TextView
                 android:id="@+id/lugar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"
@@ -130,7 +150,7 @@
                 android:id="@+id/categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"
@@ -140,7 +160,7 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/descripcion"/>
@@ -149,7 +169,7 @@
                 android:id="@+id/duracion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/duracion"/>
@@ -158,7 +178,7 @@
                 android:id="@+id/presupuesto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/presupuesto"/>

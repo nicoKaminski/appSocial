@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-//        authProvider=new AuthProvider(this);  //Con error
         manejarEventos();
     }
 

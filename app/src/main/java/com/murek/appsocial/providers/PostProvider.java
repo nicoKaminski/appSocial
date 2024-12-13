@@ -22,6 +22,12 @@ public class PostProvider {
     /** CODIGO VIEJO sin ParseObject.....
     public LiveData<String> addPost(Post post) {
         MutableLiveData<String> result = new MutableLiveData<>();
+
+         if (post.getImagenPost() == null || post.getImagenPost().isEmpty()) {
+         result.setValue("Error: El post debe tener al menos una imagen.");
+         return result;
+         }
+
         ParseObject postObject = new ParseObject("Post");
         postObject.put("user", ParseUser.getCurrentUser());
         postObject.put("titulo", post.getTituloPost());
@@ -61,21 +67,14 @@ public class PostProvider {
 
     public LiveData<String> addPost(Post post) {
         MutableLiveData<String> result = new MutableLiveData<>();
-
-        if (post.getImagenPost() == null || post.getImagenPost().isEmpty()) {
-            result.setValue("Error: El post debe tener al menos una imagen.");
-            return result;
-        }
-
-        ParseObject postObject = new ParseObject("Post");
-
-        postObject.put("titulo", post.getTituloPost());
-        postObject.put("descripcion", post.getDescripcionPost());
-        postObject.put("duracion", post.getDuracionPost());
-        postObject.put("categoria", post.getCategoriaPost());
-        postObject.put("presupuesto", post.getPresupuestoPost());
-        postObject.put("user", ParseUser.getCurrentUser()); // Relación con el usuario
-        postObject.saveInBackground(e -> {
+        post.put("titulo", post.getTituloPost());
+        post.put("descripcion", post.getDescripcionPost());
+        post.put("duracion", post.getDuracionPost());
+        post.put("categoria", post.getCategoriaPost());
+        post.put("presupuesto", post.getPresupuestoPost());
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        post.put("user", currentUser);
+        post.saveInBackground(e -> {
             if (e == null) {
                 ParseRelation<ParseObject> relation = post.getRelation("images");
                 for (String url : post.getImagenPost()) {
@@ -275,6 +274,7 @@ public class PostProvider {
         return result;
     }*/
 
+    /** Codigo Nahu -----
     public LiveData<List<Post>> getAllPosts(int page) {
         MutableLiveData<List<Post>> result = new MutableLiveData<>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
@@ -337,8 +337,70 @@ public class PostProvider {
 
         return result;
     }
+    */
 
+    public LiveData<List<Post>> getAllPosts(int page) {
+        MutableLiveData<List<Post>> result = new MutableLiveData<>();
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include("user"); // Incluye información del usuario
+        query.orderByDescending("createdAt");
+        query.setLimit(5); // Límite de 5 posts por página
+        query.setSkip(page * 5); // Desplaza según la página (5 posts por página)
+        query.findInBackground((posts, e) -> {
+            if (e == null) {
+                List<Post> postList = new ArrayList<>();
+                for (ParseObject postObject : posts) {
+                    Log.d("PostObject", "ID: " + postObject.getObjectId() + ", Title: " + postObject.getString("titulo"));
 
+                    Post post = ParseObject.create(Post.class);
+                    post.setObjectId(postObject.getObjectId());
+                    post.setTituloPost(postObject.getString("titulo"));
+                    post.setDescripcionPost(postObject.getString("descripcion"));
+                    post.setDuracionPost(postObject.getInt("duracion"));
+                    post.setCategoriaPost(postObject.getString("categoria"));
+                    post.setPresupuestoPost(postObject.getDouble("presupuesto"));
+
+                    // Obtener imágenes
+                    ParseRelation<ParseObject> relation = postObject.getRelation("images");
+                    try {
+                        List<ParseObject> images = relation.getQuery().find();
+                        List<String> imageUrls = new ArrayList<>();
+                        for (ParseObject imageObject : images) {
+                            imageUrls.add(imageObject.getString("url"));
+                        }
+                        post.setImagenPost(imageUrls);
+                    } catch (ParseException parseException) {
+                        parseException.printStackTrace();
+                    }
+
+                    // Mapeo del usuario
+                    ParseUser parseUser = postObject.getParseUser("user");
+                    if (parseUser != null) {
+                        try {
+                            parseUser.fetchIfNeeded();
+                            User user = ParseObject.createWithoutData(User.class, parseUser.getObjectId());
+                            user.setUserName(parseUser.getUsername());
+                            user.setUserEmail(parseUser.getEmail());
+                            user.setUserFotoPerfil(parseUser.getString("foto_perfil"));
+                            user.setRedSocial(parseUser.getString("red_social"));
+
+                            post.setUser(user); // Asignar el usuario convertido al post
+                        } catch (ParseException parseException) {
+                            Log.e("FetchUserError", "Error al obtener el usuario: ", parseException);
+                        }
+                    } else {
+                        Log.d("UserPointer", "User pointer es null");
+                    }
+                    postList.add(post);
+                }
+                result.setValue(postList);
+            } else {
+                result.setValue(new ArrayList<>());
+                Log.e("ParseError", "Error al recuperar todos los posts: ", e);
+            }
+        });
+        return result;
+    }
 
     public void removePost(String postId) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);

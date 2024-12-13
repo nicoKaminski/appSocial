@@ -26,14 +26,21 @@ public class PostViewModel extends ViewModel {
         return postSuccess;
     }
 
+//    public void publicarPost(Post post) {
+//        postProvider.addPost(post).observeForever(result -> {
+//            if ("Post publicado".equals(result)) {
+//                postSuccess.setValue(String.valueOf(true));
+//            } else {
+//                postSuccess.setValue(String.valueOf(false));
+//            }
+//        });
+//    }
+
     public void publicarPost(Post post) {
-        postProvider.addPost(post).observeForever(result -> {
-            if ("Post publicado".equals(result)) {
-                postSuccess.setValue(String.valueOf(true));
-            } else {
-                postSuccess.setValue(String.valueOf(false));
-            }
-        });
+        postProvider.addPost(post)
+                .observeForever(result -> {
+                    postSuccess.setValue(result);
+                });
     }
 
     public LiveData<List<Post>> getPostList(int page) {

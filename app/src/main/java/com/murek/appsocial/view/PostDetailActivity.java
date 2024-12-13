@@ -42,6 +42,7 @@ public class PostDetailActivity extends AppCompatActivity {
         binding.fabChat.setOnClickListener(v -> showDialogComment());
     }
 
+    /** CODIGO VIEJO (LE ESTOY PASANDO OBJETO)....
     private void detailInfo() {
         User usuario = (User) getIntent().getSerializableExtra("usuario");
         if (usuario != null) {
@@ -80,6 +81,46 @@ public class PostDetailActivity extends AppCompatActivity {
                 new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
                 }).attach();
             }
+        }
+    }*/
+
+    private void detailInfo() {
+
+        binding.nameUser.setText(getIntent().getStringExtra("username"));
+        binding.emailUser.setText(getIntent().getStringExtra("email"));
+        binding.insta.setText(getIntent().getStringExtra("redsocial"));
+
+        String fotoUrl = getIntent().getStringExtra("foto_perfil");
+        if (fotoUrl != null) {
+            Picasso.get()
+                    .load(fotoUrl)
+                    .placeholder(R.drawable.ic_person)
+                    .error(R.drawable.ic_person)
+                    .into(binding.circleImageView);
+        } else {
+            binding.circleImageView.setImageResource(R.drawable.ic_person);
+        }
+
+        ArrayList<String> urls = getIntent().getStringArrayListExtra("imagenes");
+        String titulo = "Lugar: " + getIntent().getStringExtra("titulo");
+        binding.lugar.setText(titulo);
+        String categoria = "Categoria: " + getIntent().getStringExtra("categoria");
+        binding.categoria.setText(categoria);
+        String comentario = "descripción: " + getIntent().getStringExtra("descripcion");
+        binding.description.setText(comentario);
+        String duracion = "Duración: " + getIntent().getIntExtra("duracion", 0) + " día/s";
+        binding.duracion.setText(duracion);
+        String presupuesto = "Presupuesto: U$ " + getIntent().getDoubleExtra("presupuesto", 0.0);
+        binding.presupuesto.setText(presupuesto);
+
+        if (urls != null && !urls.isEmpty()) {
+            ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(urls);
+            binding.viewPager.setAdapter(imageSliderAdapter);
+            binding.viewPager.setPageTransformer(new TransformerAdapter());
+
+            // Conexión TabLayout con ViewPager2
+            new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
+            }).attach();
         }
     }
 

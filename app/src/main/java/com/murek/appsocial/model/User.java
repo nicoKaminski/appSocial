@@ -1,5 +1,7 @@
 package com.murek.appsocial.model;
 
+import android.util.Log;
+
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
@@ -37,7 +39,11 @@ public class User extends ParseObject {
     }
 
     public void setUserEmail(String userEmail) {
-        put("email", userEmail);
+        if (userEmail != null) {
+            put("email", userEmail);
+        } else {
+            Log.w("User", "El correo electrónico es nulo.");
+        }
     }
 
     public String getUserpassword() {

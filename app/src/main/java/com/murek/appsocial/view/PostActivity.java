@@ -55,7 +55,7 @@ public class PostActivity extends AppCompatActivity {
         binding = ActivityPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setupRecyclerView();
-        setupViewModel();
+        setupViewModels();;
         setupCategorySpinner();
         setupGalleryLauncher();
         binding.btnUploadPost.setOnClickListener(v -> publicarPost());
@@ -79,14 +79,11 @@ public class PostActivity extends AppCompatActivity {
         updateRecyclerViewVisibility();
     }
 
-    private void setupViewModel() {
+    private void setupViewModels() {
         viewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        viewModel.getPostSuccess().observe(this, success -> {
-            String message = success.toString().equals("true") ? "Publicación exitosa" : "Error al publicar";
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-            if (success.toString().equals("true")) {
-                finish();
-            }
+        viewModel.getPostSuccess().observe(this, exito -> {
+            Toast.makeText(this, exito, Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 
@@ -95,7 +92,6 @@ public class PostActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categorias));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spCategoria.setAdapter(adapter);
-
         binding.spCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -135,7 +131,7 @@ public class PostActivity extends AppCompatActivity {
             }
         });
         binding.uploadImage.setOnClickListener(v -> {
-            Log.d("PostActivity", "Botón de subir imagen clickeado");
+//            Log.d("PostActivity", "Botón de subir imagen clickeado");
             ImageUtils.pedirPermisos(PostActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMAGE);
             ImageUtils.openGallery(PostActivity.this, galleryLauncher);
         });
@@ -173,19 +169,19 @@ public class PostActivity extends AppCompatActivity {
 
 //        Post post = new Post(titulo, descripcion, Integer.parseInt(duracion), categoria, presupuestoValido, new ArrayList<>(imagenUrl));
         Post post=new Post();
-        post.setImagenPost(new ArrayList<>(imagenUrl));
         post.setTituloPost(titulo);
         post.setDescripcionPost(descripcion);
         post.setDuracionPost(Integer.parseInt(duracion));
         post.setCategoriaPost(categoria);
         post.setPresupuestoPost(presupuestoValido);
+        post.setImagenPost(new ArrayList<>(imagenUrl));
         viewModel.publicarPost(post);
     }
 
     private void updateRecyclerViewVisibility() {
         boolean hasImages = !imagenUrl.isEmpty();
         binding.recyclerViewPost.setVisibility(hasImages ? View.VISIBLE : View.GONE);
-        binding.uploadImage.setVisibility(hasImages ? View.GONE : View.VISIBLE);
+        binding.uploadImage.setVisibility(imagenUrl.size() < MAX_IMAGES ? View.VISIBLE : View.GONE);
     }
 
 //    public void onRequestPermissionsResult (int requestCode, String[] permissions, int[] grantResults) {

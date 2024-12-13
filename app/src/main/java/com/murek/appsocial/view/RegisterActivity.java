@@ -36,13 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void manejarEventos() {
-        // Boton volver atras
-//        binding.circuloBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
         binding.circuloBack.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -79,15 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        /* CODIGO VIEJO
-        User user = new User(usuario, email, password);
-        viewModel.register(user);
-        viewModel.getRegisterResult().observe(this, result -> {
-            showToast(result);
-        });
-        limpiar();
-        */
-
         User user = new User();
         user.setUserName(usuario);
         user.setUserEmail(email);
@@ -102,7 +86,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
-//        finish();
     }
 
     private void limpiar() {

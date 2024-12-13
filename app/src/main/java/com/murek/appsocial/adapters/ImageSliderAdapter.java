@@ -62,7 +62,6 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
         }
     }
 
-
     @Override
     public int getItemCount() {
         return imageUrls.size();

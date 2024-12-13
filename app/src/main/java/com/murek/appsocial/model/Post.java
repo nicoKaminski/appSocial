@@ -98,7 +98,7 @@ public class Post extends ParseObject {
         if (user != null) {
             bundle.putString("username", user.getUserName());
             bundle.putString("email", user.getUserEmail());
-            bundle.putString("fotoperfil", user.getString("foto_perfil"));
+            bundle.putString("foto_perfil", user.getString("foto_perfil"));
         }
 
         // Lista de imágenes
