@@ -1,6 +1,7 @@
 package com.murek.appsocial.viewModel;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.murek.appsocial.model.User;
 import com.murek.appsocial.providers.AuthProvider;
+import com.murek.appsocial.view.RegisterActivity;
 
 public class RegisterViewModel extends ViewModel {
     private AuthProvider authProvider;

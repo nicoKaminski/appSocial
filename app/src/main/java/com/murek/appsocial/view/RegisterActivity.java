@@ -25,13 +25,26 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegistrerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
+//        viewModel.getRegisterResult().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(String result) {
+//                showToast(result);
+//            }
+//        });
+
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-        viewModel.getRegisterResult().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String result) {
-                showToast(result);
+
+        // Observa los resultados del registro una sola vez
+        viewModel.getRegisterResult().observe(this, result -> {
+            if (result != null) {
+                showToast("Usuario registrado exitosamente con ID: " + result);
+                limpiar();
+            } else {
+                showToast("Error durante el registro. Por favor, inténtelo de nuevo.");
             }
         });
+
         manejarEventos();
     }
 
@@ -78,10 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
         user.setUserpassword(password);
         user.setRedSocial(email);
         viewModel.register(user);
-        viewModel.getRegisterResult().observe(this, result -> {
-            showToast(result);
-        });
-        limpiar();
+//        viewModel.getRegisterResult().observe(this, result -> {
+//            showToast(result);
+//        });
+//        limpiar();
     }
 
     private void showToast(String message) {
