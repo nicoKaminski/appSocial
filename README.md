@@ -84,7 +84,7 @@ La estructura del proyecto sigue el patrón MVVM (Model-View-ViewModel) y está 
 
 ## Contacto
 
-Para cualquier consulta o comentario, puedes contactarme a través de [LinkedIn](https://www.linkedin.com/in/nkaminski-profile/) o [GitHub](https://github.com/N-Kaminski).
+Para cualquier consulta o comentario, puedes contactarme a través de [LinkedIn](https://www.linkedin.com/in/nkaminski-profile/) o [GitHub](https://github.com/nicoKaminski).
 
 ---
 
