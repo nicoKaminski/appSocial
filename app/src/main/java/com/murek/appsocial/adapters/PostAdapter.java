@@ -64,108 +64,80 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
         }
 
-        /** CODIGO VIEJO Sin ParseObject.....
         holder.itemView.setOnClickListener(v -> {
             Context context = holder.itemView.getContext();
             PostProvider postProvider = new PostProvider();
 
-            int postId = post.getIdPost();
-            LiveData<Post> postDetailLiveData = postProvider.getPostDetail(String.valueOf(postId));
+            LiveData<Post> postDetailLiveData = postProvider.getPostDetail(post.getIdPost());
             postDetailLiveData.observe((LifecycleOwner) context, postDetail -> {
                 if (postDetail != null) {
-                    Log.d("Postadapter", postDetail.getIdPost() + postDetail.getTitulo());
                     Intent intent = new Intent(context, PostDetailActivity.class);
 
                     // Datos del Post
-                    Log.d("Postadapter", postDetail.getIdPost() + postDetail.getTitulo());
-                    intent.putExtra("titulo", postDetail.getTitulo());
-                    intent.putExtra("descripcion", postDetail.getDescripcion());
-                    intent.putExtra("categoria", postDetail.getCategoria());
-                    intent.putExtra("duracion", postDetail.getDuracion());
-                    intent.putExtra("presupuesto", postDetail.getPresupuesto());
+                    intent.putExtra("post", post);
+                    intent.putExtra("idPost", post.getIdPost());
+                    intent.putExtra("titulo", postDetail.getTituloPost());
+                    intent.putExtra("descripcion", postDetail.getDescripcionPost());
+                    intent.putExtra("categoria", postDetail.getCategoriaPost());
+                    intent.putExtra("duracion", postDetail.getDuracionPost());
+                    intent.putExtra("presupuesto", postDetail.getPresupuestoPost());
 
                     // Datos del Usuario
                     User user = postDetail.getUser();
-
                     if (user != null) {
-                        Log.d("Postadapter", user.getUserName());
-                        intent.putExtra("username", user.getUserName());
-                        intent.putExtra("email", user.getUserEmail());
-                        intent.putExtra("fotoperfil", user.getUserFotoPerfil());
+                        try {
+                            intent.putExtra("username", user.getUserName());
+                            intent.putExtra("email", user.getUserEmail());
+                            intent.putExtra("redsocial", user.getRedSocial());
+                            intent.putExtra("foto_perfil", user.getUserFotoPerfil());
+
+                            // Log para debug
+                            Log.d("PostAdapter", "Enviando datos de usuario - Username: " + user.getUserName() +
+                                    ", Email: " + user.getUserEmail());
+                        } catch (Exception ex) {
+                            Log.e("PostAdapter", "Error al obtener datos del usuario: " + ex.getMessage());
+                        }
                     } else {
-                        Log.d("Postadapter", "null");
+                        Log.d("PostAdapter", "User is null");
                     }
+
                     // Lista de imágenes
-                    ArrayList<String> imageUrls = new ArrayList<>(postDetail.getImagen());
+                    ArrayList<String> imageUrls = new ArrayList<>(postDetail.getImagenPost());
                     intent.putStringArrayListExtra("imagenes", imageUrls);
 
+                    // Lanza la actividad
                     context.startActivity(intent);
                 } else {
                     Log.e("PostDetail", "No se pudo obtener el detalle del post.");
                 }
             });
         });
-    } */
-
-        holder.itemView.setOnClickListener(v -> {
-            Context context = holder.itemView.getContext();
-            PostProvider postProvider = new PostProvider();
-
-        LiveData<Post> postDetailLiveData = postProvider.getPostDetail(post.getIdPost());
-        postDetailLiveData.observe((LifecycleOwner) context, postDetail -> {
-            if (postDetail != null) {
-                Intent intent = new Intent(context, PostDetailActivity.class);
-
-                // Datos del Post
-                intent.putExtra("idPost", post.getIdPost());
-                intent.putExtra("titulo", postDetail.getTituloPost());
-                intent.putExtra("descripcion", postDetail.getDescripcionPost());
-                intent.putExtra("categoria", postDetail.getCategoriaPost());
-                intent.putExtra("duracion", postDetail.getDuracionPost());
-                intent.putExtra("presupuesto", postDetail.getPresupuestoPost());
-
-                // Datos del Usuario
-                User user = postDetail.getUser();
-                if (user != null) {
-                    Log.d("Postadapter", user.getUserName());
-                    intent.putExtra("username", user.getUserName());
-                    intent.putExtra("email", user.getUserEmail());
-                    intent.putExtra("redsocial", user.getRedSocial());
-                    intent.putExtra("foto_perfil", user.getString("foto_perfil"));
-                } else {
-                    Log.d("Postadapter", "User is null");
-                }
-
-                // Lista de imágenes
-                ArrayList<String> imageUrls = new ArrayList<>(postDetail.getImagenPost());
-                intent.putStringArrayListExtra("imagenes", imageUrls);
-
-                // Lanza la actividad
-                context.startActivity(intent);
-            } else {
-                Log.e("PostDetail", "No se pudo obtener el detalle del post.");
-            }
-        });
-    });
-}
-
-@Override
-public int getItemCount() {
-    return posts.size();
-}
-
-public static class PostViewHolder extends RecyclerView.ViewHolder {
-    TextView tvTitulo, tvDescripcion;
-    ImageView ivImage1, ivImage2, ivImage3;
-
-    public PostViewHolder(View itemView) {
-        super(itemView);
-        tvTitulo = itemView.findViewById(R.id.tvTitulo);
-        tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
-        ivImage1 = itemView.findViewById(R.id.ivImage1);
-        ivImage2 = itemView.findViewById(R.id.ivImage2);
-        ivImage3 = itemView.findViewById(R.id.ivImage3);
     }
-}
+
+    @Override
+    public int getItemCount() {
+        return posts.size();
+    }
+
+    public static class PostViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitulo, tvDescripcion;
+        ImageView ivImage1, ivImage2, ivImage3;
+
+        public PostViewHolder(View itemView) {
+            super(itemView);
+            tvTitulo = itemView.findViewById(R.id.tvTitulo);
+            tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
+            ivImage1 = itemView.findViewById(R.id.ivImage1);
+            ivImage2 = itemView.findViewById(R.id.ivImage2);
+            ivImage3 = itemView.findViewById(R.id.ivImage3);
+        }
+    }
+
+    public void updatePosts(List<Post> newPosts) {
+        this.posts.clear();  // Limpiar la lista actual
+        this.posts.addAll(newPosts); // Agregar los nuevos posts
+        notifyDataSetChanged(); // Notificar al RecyclerView que los datos cambiaron
+    }
+
 
 }

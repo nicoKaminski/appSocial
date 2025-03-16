@@ -4,16 +4,12 @@ import android.util.Log;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
-@ParseClassName("User")
-public class User extends ParseObject {
-//    private String userId;
-//    private String userName;
-//    private String userEmail;
-//    private String userpassword;
-//    private String userFotoPerfil;
-//    private String[] intereses;
+@ParseClassName("_User")
+//public class User extends ParseObject {
+    public class User extends ParseUser {
 
     public User() {
     }
@@ -27,11 +23,11 @@ public class User extends ParseObject {
     }
 
     public String getUserName() {
-        return getString("name");
+        return getString("username");
     }
 
     public void setUserName(String userName) {
-        put("name", userName);
+        put("username", userName);
     }
 
     public String getUserEmail() {

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,7 +56,7 @@ public class PostActivity extends AppCompatActivity {
         binding = ActivityPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setupRecyclerView();
-        setupViewModels();;
+        setupViewModels();
         setupCategorySpinner();
         setupGalleryLauncher();
         binding.btnUploadPost.setOnClickListener(v -> publicarPost());
@@ -110,30 +111,35 @@ public class PostActivity extends AppCompatActivity {
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                 Uri imageUri = result.getData().getData();
-                if (imageUri != null && imagenUrl.size() < MAX_IMAGES) {
-                    ImageUtils.subirImagenAParse(PostActivity.this, imageUri, new ImageUtils.ImageUploadCallback() {
-                        @Override
-                        public void onSuccess(String imageUrl) {
-                            Log.d("PostActivity", "Imagen subida con éxito: " + imageUrl);
-                            imagenUrl.add(imageUrl);
-                            adapter.notifyDataSetChanged();
-                            updateRecyclerViewVisibility();
-                        }
-                        @Override
-                        public void onFailure(Exception e) {
-                            Log.e("PostActivity", "Error al subir la imagen: " + e.getMessage());
-                            Toast.makeText(PostActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else if (imagenUrl.size() > MAX_IMAGES) {
-                    Toast.makeText(PostActivity.this, "No puedes subir mas de 3 imagenes", Toast.LENGTH_SHORT).show();
+                if (imageUri != null) {
+                    if (imagenUrl.size() < MAX_IMAGES) {
+                        ImageUtils.subirImagenAParse(PostActivity.this, imageUri, new ImageUtils.ImageUploadCallback() {
+                            @Override
+                            public void onSuccess(String imageUrl) {
+                                Log.d("PostActivity", "Imagen subida con éxito: " + imageUrl);
+                                imagenUrl.add(imageUrl);
+                                adapter.notifyDataSetChanged();
+                                updateRecyclerViewVisibility();
+                            }
+
+                            @Override
+                            public void onFailure(Exception e) {
+                                Log.e("PostActivity", "Error al subir la imagen: " + e.getMessage());
+                                Toast.makeText(PostActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (imagenUrl.size() > MAX_IMAGES) {
+                        Toast.makeText(PostActivity.this, "No puedes subir mas de 3 imagenes", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
         binding.uploadImage.setOnClickListener(v -> {
 //            Log.d("PostActivity", "Botón de subir imagen clickeado");
-            ImageUtils.pedirPermisos(PostActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMAGE);
-            ImageUtils.openGallery(PostActivity.this, galleryLauncher);
+//            ImageUtils.pedirPermisos(PostActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_IMAGE);
+//            ImageUtils.openGallery(PostActivity.this, galleryLauncher);
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            galleryLauncher.launch(intent);
         });
     }
 
@@ -168,7 +174,7 @@ public class PostActivity extends AppCompatActivity {
         }
 
 //        Post post = new Post(titulo, descripcion, Integer.parseInt(duracion), categoria, presupuestoValido, new ArrayList<>(imagenUrl));
-        Post post=new Post();
+        Post post = new Post();
         post.setTituloPost(titulo);
         post.setDescripcionPost(descripcion);
         post.setDuracionPost(Integer.parseInt(duracion));

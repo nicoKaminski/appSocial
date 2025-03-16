@@ -15,17 +15,7 @@ import com.parse.ParseUser;
 
 public class AuthProvider {
 
-    public AuthProvider() {
-    }
-
-    public AuthProvider(Context context) {
-        Parse.initialize(new Parse.Configuration.Builder(context)
-                .applicationId(context.getString(R.string.back4app_app_id))
-                .clientKey(context.getString(R.string.back4app_client_key))
-                .server(context.getString(R.string.back4app_server_url))
-                .build()
-        );
-    }
+    public AuthProvider() {}
 
     // Logeo con Parse
     public LiveData<String> singIn(String email, String password) {
@@ -45,8 +35,8 @@ public class AuthProvider {
 
     // Registro con Parse
     public LiveData<String> singUp(User user) {
+        Log.d("AuthProvider", "Intentando registrar: " + user.getUserName() + ", " + user.getUserEmail());
         MutableLiveData<String> authResult = new MutableLiveData<>();
-
         //validar
         if (user.getUserName() == null || user.getUserEmail() == null || user.getUserpassword() == null) {
             Log.e("AuthProvider", "Uno o más valores son nulos: " +
@@ -57,42 +47,22 @@ public class AuthProvider {
             return authResult;
         }
 
-        ParseUser userParse = new ParseUser();
-        userParse.setUsername(user.getUserName());
-        userParse.setEmail(user.getUserEmail());
-        userParse.setPassword(user.getUserpassword());
-        userParse.signUpInBackground(e -> {
-            if (e == null) {
-                authResult.setValue(userParse.getObjectId());
-                Log.d("AuthProvider", "Registro exitoso: " + userParse.getObjectId());
-            } else {
-                authResult.setValue(null);
-                Log.d("AuthProvider", "Registro fallido: " + e.getMessage());
-            }
-        });
-        return authResult;
-    }
-
-    //Logeo con Parse VIEJO
-    /*
-    public LiveData<String> singUp(String email, String password) {
-        MutableLiveData<String> authResult = new MutableLiveData<>();
-        ParseUser user = new ParseUser();
-        user.setEmail(email);
-        user.setPassword(password);
+//        ParseUser userParse = new ParseUser();
+        User parseUser = new User();
+        parseUser.setUsername(user.getUserName());
+        parseUser.setEmail(user.getUserEmail());
+        parseUser.setPassword(user.getUserpassword());
         user.signUpInBackground(e -> {
             if (e == null) {
-                authResult.setValue(user.getObjectId());
-                Log.d("AuthProvider", "Registro exitoso: " + user.getObjectId());
+                authResult.setValue("Registro exitoso");
+                Log.d("AuthProvider", "Registro exitoso: " + parseUser.getObjectId());
             } else {
                 authResult.setValue(null);
                 Log.d("AuthProvider", "Registro fallido: " + e.getMessage());
             }
-
         });
         return authResult;
     }
-    */
 
     //Obtener el ID del usuario actual en Parse
     public LiveData<String> getCurrentUserId() {
@@ -103,7 +73,6 @@ public class AuthProvider {
             Log.d("AuthProvider", "ID del usuario actual: " + currentUser.getObjectId());
         } else {
             Log.d("AuthProvider", "No hay un usuario autenticado");
-//            currentUserId.setValue(null);
         }
         return currentUserId;
     }

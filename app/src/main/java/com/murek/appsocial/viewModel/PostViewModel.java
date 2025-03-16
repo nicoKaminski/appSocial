@@ -26,16 +26,6 @@ public class PostViewModel extends ViewModel {
         return postSuccess;
     }
 
-//    public void publicarPost(Post post) {
-//        postProvider.addPost(post).observeForever(result -> {
-//            if ("Post publicado".equals(result)) {
-//                postSuccess.setValue(String.valueOf(true));
-//            } else {
-//                postSuccess.setValue(String.valueOf(false));
-//            }
-//        });
-//    }
-
     public void publicarPost(Post post) {
         postProvider.addPost(post)
                 .observeForever(result -> {
@@ -47,6 +37,10 @@ public class PostViewModel extends ViewModel {
         postList = postProvider.getAllPosts(page);
         Log.d("PostViewModel", "getPostList called");
         return postList;
+    }
+
+    public LiveData<List<Post>> getUserPostList(int page) {
+        return postProvider.getPostsByCurrentUser(page);
     }
 
 

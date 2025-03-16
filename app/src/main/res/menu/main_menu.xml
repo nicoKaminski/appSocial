@@ -5,7 +5,7 @@
         android:id="@+id/itemLogout"
         android:title="Cerrar Sesion"
         app:showAsAction="never"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@color/colorAccent">
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimaryDark">
     </item>
 </menu>

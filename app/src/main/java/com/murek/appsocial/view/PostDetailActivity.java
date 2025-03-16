@@ -1,6 +1,8 @@
 package com.murek.appsocial.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,8 +18,12 @@ import com.murek.appsocial.R;
 import com.murek.appsocial.adapters.ImageSliderAdapter;
 import com.murek.appsocial.adapters.TransformerAdapter;
 import com.murek.appsocial.databinding.ActivityPostDetailBinding;
+import com.murek.appsocial.model.Post;
 import com.murek.appsocial.model.User;
 import com.murek.appsocial.viewModel.PostDetailViewModel;
+import com.murek.appsocial.viewModel.PostViewModel;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,10 +32,12 @@ public class PostDetailActivity extends AppCompatActivity {
     private ActivityPostDetailBinding binding;
     private PostDetailViewModel viewModel;
     private String postId;
+    private PostViewModel postViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        postViewModel = new PostViewModel();
         binding = ActivityPostDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(PostDetailViewModel.class);
@@ -40,6 +48,7 @@ public class PostDetailActivity extends AppCompatActivity {
             viewModel.fetchComments(postId);
         }
         binding.fabChat.setOnClickListener(v -> showDialogComment());
+        manejarEventos();
     }
 
     /** CODIGO VIEJO (LE ESTOY PASANDO OBJETO)....
@@ -48,7 +57,6 @@ public class PostDetailActivity extends AppCompatActivity {
         if (usuario != null) {
             binding.nameUser.setText(usuario.getUserName());
             binding.emailUser.setText(usuario.getUserEmail());
-            binding.insta.setText(usuario.getRedSocial());
 
             String fotoUrl = usuario.getUserFotoPerfil();
             if (fotoUrl != null) {
@@ -60,6 +68,7 @@ public class PostDetailActivity extends AppCompatActivity {
             } else {
                 binding.circleImageView.setImageResource(R.drawable.ic_person);
             }
+
             ArrayList<String> urls = getIntent().getStringArrayListExtra("imagenes");
             String titulo = getString(R.string.lugar) + getIntent().getStringExtra("titulo");
             binding.lugar.setText(titulo);
@@ -71,6 +80,7 @@ public class PostDetailActivity extends AppCompatActivity {
             binding.duracion.setText(duracion);
             String presupuesto = "Presupuesto: U$ " + getIntent().getDoubleExtra("presupuesto", 0.0);
             binding.presupuesto.setText(presupuesto);
+
             if (urls != null && !urls.isEmpty()) {
 
                 ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(urls);
@@ -84,11 +94,15 @@ public class PostDetailActivity extends AppCompatActivity {
         }
     }*/
 
+
     private void detailInfo() {
 
         binding.nameUser.setText(getIntent().getStringExtra("username"));
-        binding.emailUser.setText(getIntent().getStringExtra("email"));
-        binding.insta.setText(getIntent().getStringExtra("redsocial"));
+        binding.emailUser.setText(getIntent().getStringExtra("email")); //******* VER !!!!*********
+//        binding.emailUser.setText(usuario.getUserEmail());
+//        ParseUser postUser = ParseUser.getCurrentUser();
+//        binding.emailUser.setText(postUser.getEmail());
+
 
         String fotoUrl = getIntent().getStringExtra("foto_perfil");
         if (fotoUrl != null) {
@@ -122,6 +136,17 @@ public class PostDetailActivity extends AppCompatActivity {
             new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) -> {
             }).attach();
         }
+    }
+
+
+    private void manejarEventos() {
+        // Boton volver atras
+        binding.circuloBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void showDialogComment() {
@@ -158,19 +183,15 @@ public class PostDetailActivity extends AppCompatActivity {
                 Toast.makeText(PostDetailActivity.this, "El comentario no puede estar vacío", Toast.LENGTH_SHORT).show();
             }
         });
-
         alert.setNegativeButton("Cancelar", (dialog, which) -> {
 
             dialog.dismiss();
         });
-
-
         alert.show();
     }
 
     private void setupObservers() {
         viewModel.getCommentsLiveData().observe(this, comments -> {
-
             // updateUI(comments);
         });
 

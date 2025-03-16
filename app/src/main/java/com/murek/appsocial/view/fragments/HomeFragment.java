@@ -64,20 +64,17 @@ public class HomeFragment extends Fragment {
      return new HomeFragment();
      }
 
-     @Override
-     public void onResume() {
+     @Override public void onResume() {
      super.onResume();
      cargarPosts(); // Llama al método para recargar los posts
      }
 
-     @Override
-     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
      binding = FragmentHomeBinding.inflate(inflater, container, false);
      return binding.getRoot();
      }
 
-     @Override
-     public void onViewCreated(View view, Bundle savedInstanceState) {
+     @Override public void onViewCreated(View view, Bundle savedInstanceState) {
      super.onViewCreated(view, savedInstanceState);
 
      // Inicializa el ViewModel
@@ -92,8 +89,7 @@ public class HomeFragment extends Fragment {
 
      // Listener para cargar más posts al hacer scroll
      binding.recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-     @Override
-     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+     @Override public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
      super.onScrolled(recyclerView, dx, dy);
 
      // Comprueba si el usuario ha llegado al final
@@ -142,105 +138,94 @@ public class HomeFragment extends Fragment {
 
      */
 
-    /** PROBANDO....
-    @Override
-    public void onResume() {
-        super.onResume();
-        cargarPosts(); // Llama al método para recargar los posts
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
-    }
-
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Configurar barra de herramientas
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.tools);
-
-        binding.btnAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), PostActivity.class);
-            startActivity(intent);
-        });
-
-        // Configurar RecyclerView
-        adapter = new PostAdapter(postList);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerView.setAdapter(adapter);
-
-        // Inicializar la carga de posts
-        cargarPosts();
-
-        // Configurar menú
-        setupMenu();
-    }
-
-    private void cargarPosts() {
-        if (isLoading) return;
-        isLoading = true;
-        ((HomeActivity) requireActivity()).showProgressBar(); // Muestra barra de progreso
-        postViewModel.getPostList(currentPage).observe(getViewLifecycleOwner(), posts -> {
-            if (posts != null && !posts.isEmpty()) {
-                postList.addAll(posts);
-                adapter.notifyDataSetChanged();
-                currentPage++;
-            }else {
-                Toast.makeText(getContext(), "No hay más publicaciones disponibles.", Toast.LENGTH_SHORT).show();
-            }
-            // Oculta la barra de progreso y permite nuevas solicitudes
-            isLoading = false;
-            ((HomeActivity) requireActivity()).hideProgressBar();
-        });
-    }
-
-    private void setupMenu() {
-        requireActivity().addMenuProvider(new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.main_menu, menu);
-            }
-
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.itemLogout) {
-                    onLogout();
-                    return true;
-                }
-                return false;
-            }
-        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-    }
-
-    private void onLogout() {
-        authViewModel.logOut().observe(getViewLifecycleOwner(), logoutResult -> {
-            if (logoutResult != null && logoutResult) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            } else {
-                Toast.makeText(getContext(), "Error al cerrar sesión. Intenta nuevamente.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-    */
+    /**
+     * PROBANDO....
+     *
+     * @Override public void onResume() {
+     * super.onResume();
+     * cargarPosts(); // Llama al método para recargar los posts
+     * }
+     * @Override public void onCreate(Bundle savedInstanceState) {
+     * super.onCreate(savedInstanceState);
+     * postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+     * authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+     * }
+     * @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+     * binding = FragmentHomeBinding.inflate(inflater, container, false);
+     * return binding.getRoot();
+     * }
+     * @Override public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+     * super.onViewCreated(view, savedInstanceState);
+     * <p>
+     * // Configurar barra de herramientas
+     * ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.tools);
+     * <p>
+     * binding.btnAdd.setOnClickListener(v -> {
+     * Intent intent = new Intent(getContext(), PostActivity.class);
+     * startActivity(intent);
+     * });
+     * <p>
+     * // Configurar RecyclerView
+     * adapter = new PostAdapter(postList);
+     * binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+     * binding.recyclerView.setAdapter(adapter);
+     * <p>
+     * // Inicializar la carga de posts
+     * cargarPosts();
+     * <p>
+     * // Configurar menú
+     * setupMenu();
+     * }
+     * <p>
+     * private void cargarPosts() {
+     * if (isLoading) return;
+     * isLoading = true;
+     * ((HomeActivity) requireActivity()).showProgressBar(); // Muestra barra de progreso
+     * postViewModel.getPostList(currentPage).observe(getViewLifecycleOwner(), posts -> {
+     * if (posts != null && !posts.isEmpty()) {
+     * postList.addAll(posts);
+     * adapter.notifyDataSetChanged();
+     * currentPage++;
+     * }else {
+     * Toast.makeText(getContext(), "No hay más publicaciones disponibles.", Toast.LENGTH_SHORT).show();
+     * }
+     * // Oculta la barra de progreso y permite nuevas solicitudes
+     * isLoading = false;
+     * ((HomeActivity) requireActivity()).hideProgressBar();
+     * });
+     * }
+     * <p>
+     * private void setupMenu() {
+     * requireActivity().addMenuProvider(new MenuProvider() {
+     * @Override public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+     * menuInflater.inflate(R.menu.main_menu, menu);
+     * }
+     * @Override public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+     * if (menuItem.getItemId() == R.id.itemLogout) {
+     * onLogout();
+     * return true;
+     * }
+     * return false;
+     * }
+     * }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+     * }
+     * <p>
+     * private void onLogout() {
+     * authViewModel.logOut().observe(getViewLifecycleOwner(), logoutResult -> {
+     * if (logoutResult != null && logoutResult) {
+     * Intent intent = new Intent(getContext(), MainActivity.class);
+     * intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+     * startActivity(intent);
+     * } else {
+     * Toast.makeText(getContext(), "Error al cerrar sesión. Intenta nuevamente.", Toast.LENGTH_SHORT).show();
+     * }
+     * });
+     * }
+     * @Override public void onDestroyView() {
+     * super.onDestroyView();
+     * binding = null;
+     * }
+     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -258,10 +243,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         // Configurar barra de herramientas
         ((AppCompatActivity) requireActivity()).setSupportActionBar(binding.tools);
-
         binding.btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), PostActivity.class);
             startActivity(intent);
@@ -269,7 +252,6 @@ public class HomeFragment extends Fragment {
 
         // Configurar RecyclerView
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         postViewModel.getPostList(currentPage).observe(getViewLifecycleOwner(), posts -> {
             if (posts != null && !posts.isEmpty()) {
                 Log.d("HomeFragment", "Número de posts: " + posts.size());

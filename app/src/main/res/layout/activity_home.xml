@@ -17,13 +17,13 @@
 
         <!--Contenedor del progress bar-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="176dp"
             android:id="@+id/cont_progress"
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
             android:gravity="center"
-            android:padding="16dp"
             android:orientation="vertical"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+            android:padding="16dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <!--Barra de navegación-->
         <com.google.android.material.bottomnavigation.BottomNavigationView

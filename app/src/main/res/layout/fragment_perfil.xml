@@ -16,12 +16,14 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <!--foto perfil-->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageView"
                     android:layout_width="match_parent"
@@ -33,6 +35,7 @@
                     app:civ_border_width="5dp"
                     app:civ_circle_background_color="@color/colorGray" />
 
+                <!--Titulo-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -42,6 +45,7 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="28dp" />
 
+                <!--Nombre y mail-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,35 +59,55 @@
                         android:id="@+id/name_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:hint="Nombre"
                         android:text=""
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:hint="Nombre"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/email_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
+                        android:hint="mail"
                         android:text=""
                         android:textColor="@color/colorAccent"
                         android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:hint="mail"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
+                <!-- Actualizar Perfil -->
+                <!-- Boton -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnUpdatePerfil"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginTop="210dp"
+                        android:background="@drawable/ic_edit"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!--Cantidad de publicaciones-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center|left"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="5dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/cantPost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="0"
@@ -105,44 +129,185 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center"-->
-<!--        android:layout_margin="100dp"-->
-<!--        android:orientation="vertical">-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/name_user"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text=""-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/colorPrimaryDark"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:hint="Nombre"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/email_user"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="7dp"-->
-<!--            android:text=""-->
-<!--            android:textColor="@color/colorPrimaryDark"-->
-<!--            android:textSize="15sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:hint="mail"/>-->
-<!--    </LinearLayout>-->
-
+    <!-- Post del perfil -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Texto opcional si no hay publicaciones -->
+            <TextView
+                android:id="@+id/tvNoPosts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Aún no tienes publicaciones"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <!-- RecyclerView para mostrar los posts -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbars="vertical" />
+
+            <!-- Actualizar Perfil -->
+            <!-- campos -->
+            <LinearLayout
+                android:id="@+id/layout_updateUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#E9E9F1FA"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+                android:visibility="gone">
+                <!--Usuario-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_usuario" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextColor="@color/colorPrimaryDark">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUpdateUsuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nombre de Usuario"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:inputType="text"
+                            android:singleLine="true"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!--Mail-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_mail" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextColor="@color/colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUpdateMail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Correo electronico"
+                            android:inputType="textEmailAddress"
+                            android:singleLine="true"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!--Pass-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/ic_pass" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintTextColor="@color/colorPrimaryDark">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUpdatePass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Contraseña"
+                            android:inputType="textPassword"
+                            android:singleLine="true"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Botones de CRUD -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="30dp"
+                    android:columnCount="2"
+                    android:padding="8dp"
+                    android:rowCount="1">
+
+                    <Button
+                        android:id="@+id/btnUpdateUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:enabled="false"
+                        android:text="Actualizar"
+                        android:textSize="18dp"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnCancelUpdateUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginLeft="10dp"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:enabled="true"
+                        android:text="Cancelar"
+                        android:textSize="18dp"
+                        android:textColor="@color/white" />
+                </GridLayout>
+            </LinearLayout>
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
+
+    <!--Footer-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"

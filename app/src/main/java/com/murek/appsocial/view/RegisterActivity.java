@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.murek.appsocial.databinding.ActivityRegistrerBinding;
@@ -25,16 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRegistrerBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-//        viewModel.getRegisterResult().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(String result) {
-//                showToast(result);
-//            }
-//        });
-
+        manejarEventos();
         viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-
         // Observa los resultados del registro una sola vez
         viewModel.getRegisterResult().observe(this, result -> {
             if (result != null) {
@@ -45,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        manejarEventos();
     }
 
     private void manejarEventos() {
@@ -89,12 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setUserName(usuario);
         user.setUserEmail(email);
         user.setUserpassword(password);
-        user.setRedSocial(email);
         viewModel.register(user);
-//        viewModel.getRegisterResult().observe(this, result -> {
-//            showToast(result);
-//        });
-//        limpiar();
     }
 
     private void showToast(String message) {
