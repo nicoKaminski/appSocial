@@ -77,11 +77,12 @@ public class PostProvider {
         ParseUser currentUser = ParseUser.getCurrentUser();
         post.put("user", currentUser);
 
-        // Establecer permisos de ACL
-        ParseACL acl = new ParseACL();
-        acl.setPublicReadAccess(true); // Permitir lectura a todos
-        //acl.setWriteAccess(currentUser, true); // Solo el usuario que crea el post puede escribir (modificar)
-        post.setACL(acl); // Establecer ACL en el post
+//        // Establecer permisos de ACL
+//        ParseACL acl = new ParseACL();
+//        acl.setPublicReadAccess(true); // Permitir lectura a todos
+//        //acl.setWriteAccess(currentUser, true); // Solo el usuario que crea el post puede escribir (modificar)
+//        ParseACL.setDefaultACL(acl, true); //ver si esto va!
+//        post.setACL(acl); // Establecer ACL en el post
 
         // Guardar el post
         post.saveInBackground(e -> {
@@ -112,93 +113,6 @@ public class PostProvider {
         return result;
     }
 
-    /**
-     * CODIGO VIEJO sin ParseObject.....
-     * public LiveData<List<Post>> getPostByCurrentUser() {
-     * MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-     * ParseUser currentUser = ParseUser.getCurrentUser();
-     * if (currentUser == null) {
-     * posts.setValue(new ArrayList<>());
-     * return posts;
-     * }
-     * ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
-     * query.whereEqualTo("user", currentUser);
-     * query.include("user");
-     * query.findInBackground((postsList, error) -> {
-     * if (error == null) {
-     * List<Post> postList = new ArrayList<>();
-     * for (ParseObject postObject : postsList) {
-     * Post post = new Post(
-     * postObject.getString("titulo"),
-     * postObject.getString("descripcion"),
-     * postObject.getInt("duracion"),
-     * postObject.getString("categoria"),
-     * postObject.getDouble("presupuesto")
-     * );
-     * <p>
-     * ParseRelation<ParseObject> imagenRelation = postObject.getRelation("images");
-     * try{
-     * List<ParseObject> imagenes = imagenRelation.getQuery().find();
-     * List<String> imagenUrl = new ArrayList<>();
-     * for (ParseObject imagen : imagenes) {
-     * imagenUrl.add(imagen.getString("url"));
-     * }
-     * post.setImagenPost(imagenUrl);
-     * } catch (ParseException e) {
-     * e.printStackTrace();
-     * }
-     * postList.add(post);
-     * }
-     * posts.setValue(postList);
-     * } else {
-     * posts.setValue(new ArrayList<>());
-     * Log.e("PostProvider", "Error al obtener los posts: " + error.getMessage());
-     * }
-     * });
-     * return posts;
-     * }
-     * <p>
-     * public LiveData<List<Post>> getAllPosts(int page) {
-     * MutableLiveData<List<Post>> posts = new MutableLiveData<>();
-     * ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
-     * query.include("user");
-     * query.orderByDescending("createdAt");
-     * query.setLimit(5);
-     * query.setSkip(page *5);
-     * query.findInBackground((postsList, error) -> {
-     * if (error == null) {
-     * List<Post> postList = new ArrayList<>();
-     * for (ParseObject postObject : postsList) {
-     * Post post = new Post(
-     * postObject.getString("titulo"),
-     * postObject.getString("descripcion"),
-     * postObject.getInt("duracion"),
-     * postObject.getString("categoria"),
-     * postObject.getDouble("presupuesto")
-     * );
-     * ParseRelation<ParseObject> imagenRelation = postObject.getRelation("imagenes");
-     * try{
-     * List<ParseObject> imagenes = imagenRelation.getQuery().find();
-     * List<String> imagenUrl = new ArrayList<>();
-     * for (ParseObject immagenObject : imagenes) {
-     * imagenUrl.add(immagenObject.getString("url"));
-     * }
-     * post.setImagenPost(imagenUrl);
-     * } catch (ParseException e) {
-     * e.printStackTrace();
-     * }
-     * postList.add(post);
-     * }
-     * posts.setValue(postList);
-     * } else {
-     * posts.setValue(new ArrayList<>());
-     * Log.e("PostProvider", "Error al obtener los posts: " + error.getMessage());
-     * }
-     * });
-     * return posts;
-     * }
-     */
-
     public LiveData<List<Post>> getPostsByCurrentUser(int page) {
         MutableLiveData<List<Post>> result = new MutableLiveData<>();
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -224,138 +138,6 @@ public class PostProvider {
         });
         return result;
     }
-
-
-    /**
-     public LiveData<List<Post>> getAllPosts(int page) {
-     MutableLiveData<List<Post>> result = new MutableLiveData<>();
-     ParseQuery<Post> query = ParseQuery.getQuery("Post");
-     query.include("user");
-     query.orderByDescending("createdAt");
-     query.setLimit(5);
-     query.setSkip(page *5);
-     query.findInBackground((posts, e) -> {
-     if (e == null) {
-     List<Post> postList = new ArrayList<>();
-     for (ParseObject postObject : posts) {
-     Log.d("PostObject", "ID: " + postObject.getObjectId() + ", Title: " + postObject.getString("titulo"));
-
-     Post post = ParseObject.create(Post.class);
-     post.setObjectId(postObject.getObjectId());
-     post.setTituloPost(postObject.getString("titulo"));
-     post.setDescripcionPost(postObject.getString("descripcion"));
-     post.setDuracionPost(postObject.getInt("duracion"));
-     post.setCategoriaPost(postObject.getString("categoria"));
-     post.setPresupuestoPost(postObject.getDouble("presupuesto"));
-
-     // Obtener imágenes
-     ParseRelation<ParseObject> relation = postObject.getRelation("images");
-     try {
-     List<ParseObject> images = relation.getQuery().find();
-     List<String> imageUrls = new ArrayList<>();
-     for (ParseObject imageObject : images) {
-     imageUrls.add(imageObject.getString("url"));
-     }
-     post.setImagenPost(imageUrls);
-     } catch (ParseException parseException) {
-     parseException.printStackTrace();
-     }
-
-     // Mapeo del usuario
-     ParseUser parseUser = postObject.getParseUser("user");
-     if (parseUser != null) {
-     try {
-     parseUser.fetchIfNeeded();
-     User user = ParseObject.createWithoutData(User.class, parseUser.getObjectId());
-     user.setUserName(parseUser.getUsername());
-     user.setUserEmail(parseUser.getEmail());
-     user.setUserFotoPerfil(parseUser.getString("foto_perfil"));
-     user.setRedSocial(parseUser.getString("red_social"));
-
-     post.setUser(user); // Asignar el usuario convertido al post
-     } catch (ParseException parseException) {
-     Log.e("FetchUserError", "Error al obtener el usuario: ", parseException);
-     }
-     } else {
-     Log.d("UserPointer", "User pointer es null");
-     }
-
-     postList.add(post);
-     }
-     result.setValue(postList);
-     } else {
-     result.setValue(new ArrayList<>());
-     Log.e("ParseError", "Error al recuperar todos los posts: ", e);
-     }
-     });
-     return result;
-     }*/
-
-    /**
-     * Codigo Nahu -----
-     * public LiveData<List<Post>> getAllPosts(int page) {
-     * MutableLiveData<List<Post>> result = new MutableLiveData<>();
-     * ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
-     * query.include("user"); // Incluye información del usuario
-     * query.orderByDescending("createdAt");
-     * query.setLimit(5); // Límite de 5 posts por página
-     * query.setSkip(page * 5); // Desplaza según la página (5 posts por página)
-     * <p>
-     * query.findInBackground((posts, e) -> {
-     * if (e == null) {
-     * List<Post> postList = new ArrayList<>();
-     * for (ParseObject postObject : posts) {
-     * try {
-     * // Crear un objeto Post de ParseObject
-     * Post post = (Post) postObject;  // Usar el casteo a Post
-     * <p>
-     * // Verificar si los valores son nulos y asignar valores predeterminados si es necesario
-     * String titulo = post.getTituloPost();
-     * String descripcion = post.getDescripcionPost();
-     * int duracion = post.getDuracionPost();
-     * String categoria = post.getCategoriaPost();
-     * double presupuesto = post.getPresupuestoPost();
-     * <p>
-     * // Si alguno de estos campos es nulo, asignar un valor predeterminado
-     * if (titulo == null) titulo = "Título no disponible";
-     * if (descripcion == null) descripcion = "Descripción no disponible";
-     * if (categoria == null) categoria = "Categoría no disponible";
-     * <p>
-     * // Asignar los valores a los campos de post
-     * post.setTituloPost(titulo);
-     * post.setDescripcionPost(descripcion);
-     * post.setDuracionPost(duracion);
-     * post.setCategoriaPost(categoria);
-     * post.setPresupuestoPost(presupuesto);
-     * <p>
-     * // Cargar imágenes
-     * ParseRelation<ParseObject> relation = postObject.getRelation("images");
-     * try {
-     * List<ParseObject> images = relation.getQuery().find();
-     * List<String> imageUrls = new ArrayList<>();
-     * for (ParseObject imageObject : images) {
-     * imageUrls.add(imageObject.getString("url"));
-     * }
-     * post.setImagenPost(imageUrls);
-     * } catch (ParseException parseException) {
-     * parseException.printStackTrace();
-     * }
-     * <p>
-     * postList.add(post);
-     * } catch (Exception ex) {
-     * Log.e("ParseError", "Error al procesar el post: ", ex);
-     * }
-     * }
-     * result.setValue(postList);
-     * } else {
-     * result.setValue(new ArrayList<>());
-     * Log.e("ParseError", "Error al recuperar todos los posts: ", e);
-     * }
-     * });
-     * <p>
-     * return result;
-     * }
-     */
 
     public LiveData<List<Post>> getAllPosts(int page) {
         MutableLiveData<List<Post>> result = new MutableLiveData<>();
@@ -420,21 +202,26 @@ public class PostProvider {
         return result;
     }
 
-    public void removePost(String postId) {
+    public LiveData<String> deletePost(String postId) {
+        MutableLiveData<String> result = new MutableLiveData<>();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.getInBackground(postId, (post, e) -> {
             if (e == null) {
                 post.deleteInBackground(e1 -> {
                     if (e1 == null) {
                         Log.d("PostDelete", "Post eliminado con éxito.");
+                        result.postValue("Post eliminado correctamente");
                     } else {
                         Log.e("PostDelete", "Error al eliminar el post: ", e1);
+                        result.postValue("Error al eliminar el post: " + e1.getMessage());
                     }
                 });
             } else {
                 Log.e("PostDelete", "Error al encontrar el post: ", e);
+                result.postValue("Error al encontrar el post: " + e.getMessage());
             }
         });
+        return result;
     }
 
     public LiveData<Post> getPostDetail(String postId) {
@@ -455,15 +242,14 @@ public class PostProvider {
                     post.setImagenPost(imageUrls);
 
                     // Manejar usuario
+                    /* CODIGO MIO PARA PROBAR EL DE LA PROFE
 
                     ParseUser parseUser = post.getParseUser("user");
                     if (parseUser != null) {
                         parseUser.fetchIfNeeded();
-
                         User user = new User();
                         user.setObjectId(parseUser.getObjectId());
                         user.setUserName(parseUser.getUsername());
-
                         // Verificar si el usuario actual es el dueño del post
                         ParseUser currentUser = ParseUser.getCurrentUser();
                         if (currentUser != null && parseUser.getObjectId().equals(currentUser.getObjectId())) {
@@ -478,24 +264,39 @@ public class PostProvider {
                                 ", Email: " + user.getUserEmail() +
                                 ", Es usuario actual: " + (currentUser != null && parseUser.getObjectId().equals(currentUser.getObjectId())));
                     }
-
-/*
-                ParseObject userObject = post.getParseObject("user");
-                if (userObject != null)
-                    userObject.fetchIfNeeded();
-                    User user = new User();
-                    user.setUserName(userObject.getString("username"));
-                    user.setUserEmail(userObject.getString("email"));
-                    user.setUserFotoPerfil(userObject.getString("foto_perfil"));
-                    post.setUser(user);
-*/
-
-
                 result.setValue(post);
                 } catch (ParseException parseException) {
                     Log.e("PostProvider", "Error al cargar datos: " + parseException.getMessage());
                     parseException.printStackTrace();
                 }
+
+            } else {
+                Log.e("ParseError", "Error al obtener el post: ", e);
+                result.setValue(null);
+            }
+        });
+
+                     */
+
+                } catch (ParseException parseException) {
+                    parseException.printStackTrace();
+                }
+                ParseObject userObject = post.getParseObject("user");
+                if (userObject != null) try {
+                    userObject.fetchIfNeeded();
+                    User user = new User();
+                    user.setUsername(userObject.getString("username"));
+                    user.setEmail(userObject.getString("email"));
+                    user.setUserFotoPerfil(userObject.getString("foto_perfil"));
+                    post.setUser(user);
+                } catch (ParseException userFetchException) {
+                    userFetchException.printStackTrace();
+                }
+                else {
+                    Log.w("PostDetail", "El usuario asociado al post es nulo.");
+                }
+
+                result.setValue(post);
             } else {
                 Log.e("ParseError", "Error al obtener el post: ", e);
                 result.setValue(null);
@@ -525,12 +326,10 @@ public class PostProvider {
 
     public void saveComment(String postId, String commentText, ParseUser currentUser, SaveCallback callback) {
         ParseObject post = ParseObject.createWithoutData("Post", postId);
-
-        ParseObject comentario = new ParseObject("Comentario");
+        ParseObject comentario = ParseObject.create("Comentario");
         comentario.put("texto", commentText);
         comentario.put("post", post);
         comentario.put("user", currentUser);
-
         comentario.saveInBackground(callback);
     }
 

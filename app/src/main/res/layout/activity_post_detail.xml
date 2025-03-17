@@ -165,17 +165,50 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewComentarios"
+            <!-- Lista de comentarios -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Comentarios"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimary"
+                        android:paddingBottom="8dp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerComentarios"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Botón para eliminar post -->
+            <Button
+                android:id="@+id/btnEliminarPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eliminar Post"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
-
-
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Floating Action Button -->
+    <!-- boton para dejar mensaje -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabChat"
         android:layout_width="wrap_content"

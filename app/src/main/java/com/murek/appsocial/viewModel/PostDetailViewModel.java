@@ -14,10 +14,15 @@ public class PostDetailViewModel extends ViewModel {
 
     private final MutableLiveData<List<ParseObject>> commentsLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> successLiveData = new MutableLiveData<>();
     private final PostProvider postProvider;
 
     public PostDetailViewModel() {
         postProvider = new PostProvider();
+    }
+
+    public LiveData<String> getSuccessLiveData() {
+        return successLiveData;
     }
 
     public LiveData<List<ParseObject>> getCommentsLiveData() {
@@ -34,7 +39,6 @@ public class PostDetailViewModel extends ViewModel {
             public void onSuccess(List<ParseObject> comments) {
                 commentsLiveData.postValue(comments);
             }
-
             @Override
             public void onFailure(Exception e) {
                 errorLiveData.postValue(e.getMessage());
@@ -49,6 +53,16 @@ public class PostDetailViewModel extends ViewModel {
                 fetchComments(postId);
             } else {
                 errorLiveData.postValue(e.getMessage());
+            }
+        });
+    }
+
+    public void removePost(String postId) {
+        postProvider.deletePost(postId).observeForever(mensaje -> {
+            if (mensaje.equals("Post eliminado correctamente")) {
+                successLiveData.postValue(mensaje);
+            } else {
+                errorLiveData.postValue(mensaje);
             }
         });
     }
