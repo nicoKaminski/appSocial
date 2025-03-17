@@ -3,88 +3,131 @@
 ## Descripción
 
 Importante!: la app no esta terminada y es un proyecto universitario desarrollado para la asignatura "Desarrollo Mobile"
-appSocial es una aplicación móvil de tipo social. Actualmente, la funcionalidad específica de la aplicación aún no ha sido detallada, pero esta cuenta con una estructura de menús y opciones que permiten explorar la aplicación. Entre sus características principales, appSocial incluye un menú de navegación, una página de inicio de sesión y registro, y una página para gestionar usuarios con opciones de creación, actualización, eliminación y visualización de usuarios.
+
+appSocial es una aplicación móvil de tipo social. Actualmente, permite a los usuarios compartir experiencias de viaje a través de publicaciones (posts) que incluyen imágenes, descripciones, precios y ubicaciones. Otros usuarios pueden interactuar con estas publicaciones mediante comentarios. La aplicación también ofrece funcionalidades básicas de autenticación y gestión de perfiles.
 
 ## Tecnologías Principales
 
-- **Java**: Lenguaje de programación principal de la aplicación.
-- **Android Studio**: IDE utilizado para el desarrollo de la aplicación.
-- **MVVM**: Arquitectura empleada para estructurar el proyecto.
-- **Fragments y Activities**: Utilizados para estructurar las diferentes pantallas y secciones de la aplicación.
-- **Firebase Authentication**: Para la autenticación de usuarios.
+-   **Java**: Lenguaje de programación principal de la aplicación.
+-   **Android Studio**: IDE utilizado para el desarrollo de la aplicación.
+-   **MVVM**: Arquitectura empleada para estructurar el proyecto.
+-   **Fragments y Activities**: Utilizados para estructurar las diferentes pantallas y secciones de la aplicación.
+-   **Parse**: Para la persistencia de datos y autenticación de usuarios.
 
 ## Funcionalidades Principales
 
-1. **Menú de Navegación**: Un menú de navegación inferior con las siguientes opciones:
-   - **Home**: Página de inicio de la aplicación.
-   - **Perfil**: Pantalla donde el usuario puede ver y editar su perfil.
-   - **Chats**: Página para iniciar y gestionar conversaciones.
-   - **Filtros**: Opciones de filtrado de contenido.
+1.  **Menú de Navegación**: Un menú de navegación inferior con las siguientes opciones:
+   -   **Home**: Página de inicio de la aplicación (publicaciones).
+   -   **Perfil**: Pantalla donde el usuario puede ver y editar su perfil, y gestionar sus publicaciones.
+   -   **Chats**: Página para iniciar y gestionar conversaciones (pendiente de implementación).
+   -   **Filtros**: Opciones de filtrado de contenido (pendiente de implementación).
 
-2. **Vista de Login**: La vista principal de la aplicación es una página de inicio de sesión. Los usuarios pueden iniciar sesión si ya tienen una cuenta registrada. En caso de no estar registrados, son dirigidos a la página de registro.
+2.  **Vista de Login**: La vista principal de la aplicación es una página de inicio de sesión. Los usuarios pueden iniciar sesión si ya tienen una cuenta registrada. En caso de no estar registrados, son dirigidos a la página de registro.
 
-3. **Registro de Usuario**: Páginas de registro e inicio de sesión para usuarios no registrados, implementadas mediante Firebase Authentication.
+3.  **Registro de Usuario**: Páginas de registro e inicio de sesión para usuarios no registrados, implementadas mediante Parse.
 
-34 **Gestión de Usuarios**: En la página de gestión de usuarios, hay cuatro botones:
-   - **Leer**: Muestra información de los usuarios registrados.
-   - **Actualizar**: Permite actualizar los datos de un usuario.
-   - **Eliminar**: Permite eliminar a un usuario.
-   - **Crear**: Crea un nuevo usuario en el sistema.
-  
+4.  **Publicaciones de Viaje (Posts)**:
+   -   Los usuarios pueden crear publicaciones de viaje con hasta 3 imágenes, descripción, precio y lugar.
+   -   Otros usuarios pueden ver estas publicaciones y dejar comentarios.
+   -   Los usuarios pueden ver y eliminar sus propias publicaciones desde su perfil.
+   -   Los usuarios pueden ver los detalles de una publicación individual.
+
+5.  **Perfil de Usuario**:
+   -   Los usuarios pueden ver sus publicaciones en su perfil.
+   -   Los usuarios pueden eliminar sus publicaciones desde su perfil.
+   -   Los usuarios pueden actualizar su información de perfil (con problemas pendientes).
+
 ## Estructura del Proyecto
 
 La estructura del proyecto sigue el patrón MVVM (Model-View-ViewModel) y está organizada en diferentes paquetes según el propósito de cada clase.
 
 ### `/main/java/com/murek/appsocial`
 
+#### `/adapters`
+
+-   **CarruselAdapter.java**: Adaptador para mostrar múltiples imágenes en un carrusel.
+-   **ComentarioAdapter.java**: Adaptador para mostrar comentarios en una lista.
+-   **ImageAdapter.java**: Adaptador para manejar la selección de imágenes.
+-   **ImageSlideAdapter.java**: Adaptador para mostrar imágenes en una presentación de diapositivas.
+-   **PostAdapter.java**: Adaptador para mostrar publicaciones de viaje en una lista.
+-   **TransdormerAdapter.java**: Adaptador para efectos de transición en el carrusel de imágenes.
+
 #### `/model`
-- **User.java**: Define la clase de usuario con sus atributos y métodos.
+
+-   **Comentario.java**: Define la clase de comentario con sus atributos y métodos.
+-   **Post.java**: Define la clase de publicación con sus atributos y métodos.
+-   **User.java**: Define la clase de usuario con sus atributos y métodos.
 
 #### `/providers`
-- **AuthProvider.java**: Proveedor de autenticación para la gestión de inicio de sesión y registro.
-- **UserProvider.java**: Proveedor para realizar operaciones de CRUD con los datos de usuario (pendiente de implementación en Firebase).
+
+-   **AuthProvider.java**: Proveedor de autenticación para la gestión de inicio de sesión y registro.
+-   **PostProvider.java**: Proveedor para realizar operaciones de CRUD con las publicaciones de viaje (usando Parse).
+-   **UserProvider.java**: Proveedor para realizar operaciones de CRUD con los datos de usuario (actualmente usando Parse).
 
 #### `/util`
-- **Validaciones.java**: Contiene funciones para validar los datos de entrada en los formularios, como correos electrónicos, contraseñas, etc.
+
+-   **ImageUtils.java**: Contiene utilidades para el manejo de imágenes.
+-   **Validaciones.java**: Contiene funciones para validar los datos de entrada en los formularios, como correos electrónicos, contraseñas, etc.
 
 #### `/view`
-- **MainActivity.java**: Activity principal que gestiona la navegación entre las secciones de la app.
-- **RegisterActivity.java**: Activity para el registro de usuarios.
-- **UserActivity.java**: Activity para la gestión de usuarios, donde se puede crear, leer, actualizar y eliminar usuarios.
+
+-   **AppSocial.java**: Clase de aplicación principal para la inicialización.
+-   **HomeActivity.java**: Activity para la pantalla de inicio.
+-   **MainActivity.java**: Activity principal que gestiona la navegación entre las secciones de la app.
+-   **PostActivity.java**: Activity para crear nuevas publicaciones de viaje.
+-   **PostDetailActivity.java**: Activity para ver los detalles de una publicación de viaje.
+-   **RegisterActivity.java**: Activity para el registro de usuarios.
 
 #### `/view/fragments`
-- **HomeFragment.java**: Fragmento que muestra la pantalla de inicio.
-- **FiltrosFragment.java**: Fragmento donde se gestionan los filtros.
-- **ChatsFragment.java**: Fragmento para gestionar las conversaciones.
-- **PerfilFragment.java**: Fragmento para ver y editar el perfil de usuario.
+
+-   **ChatsFragment.java**: Fragmento para gestionar las conversaciones (en evaluacion de si se utilizara o no).
+-   **FiltrosFragment.java**: Fragmento donde se gestionan los filtros (pendiente de implementación).
+-   **HomeFragment.java**: Fragmento que muestra las publicaciones de viaje.
+-   **PerfilFragment.java**: Fragmento para ver y editar el perfil de usuario, y gestionar las publicaciones del usuario.
 
 #### `/viewModel`
-- **HomeViewModel.java**: ViewModel para manejar la lógica de la pantalla de inicio.
-- **MainViewModel.java**: ViewModel que facilita la interacción entre el modelo y la vista principal.
-- **RegisterViewModel.java**: ViewModel que gestiona la lógica de registro de usuario.
-- **UserViewModel.java**: ViewModel para la lógica de gestión de usuario.
+
+-   **AuthViewModel.java**: ViewModel para la autenticación general.
+-   **MainAuthViewModel.java**: ViewModel para la lógica de la actividad principal.
+-   **PostAuthViewModel.java**: ViewModel para la lógica de las publicaciones.
+-   **PostDetailAuthViewModel.java**: ViewModel para la lógica del detalle de las publicaciones.
+-   **RegisterAuthViewModel.java**: ViewModel que gestiona la lógica de registro de usuario.
+-   **UserAuthViewModel.java**: ViewModel para la lógica del perfil de usuario y gestión de publicaciones.
 
 ### `/res/layout`
-- **activity_main.xml**: Layout de la pantalla principal.
-- **activity_register.xml**: Layout para el registro de usuarios.
-- **activity_user.xml**: Layout de gestión de usuarios.
-- **activity_home.xml**: Layout para la pantalla de inicio.
-- **activity_chats.xml**: Layout para la sección de chats.
-- **activity_filtros.xml**: Layout para la sección de filtros.
-- **activity_perfil.xml**: Layout para el perfil de usuario.
+
+-   **activity\_home.xml**: Layout para la pantalla de inicio.
+-   **activity\_main.xml**: Layout de la pantalla principal.
+-   **activity\_post.xml**: Layout para la creación de publicaciones.
+-   **activity\_post\_detail.xml**: Layout para los detalles de una publicación.
+-   **activity\_register.xml**: Layout para el registro de usuarios.
+-   **fragment\_edit\_perfil.xml**: Layout para editar el perfil del usuario (pendiente de implementación).
+-   **fragment\_chats.xml**: Layout para la sección de chats (pendiente de implementación).
+-   **fragment\_filtros.xml**: Layout para la sección de filtros (pendiente de implementación).
+-   **fragment\_home.xml**: Layout para la pantalla de inicio (publicaciones).
+-   **fragment\_perfil.xml**: Layout para el perfil de usuario.
+-   **item\_comentario.xml**: Layout para cada comentario en la lista.
+-   **item\_image.xml**: Layout para la selección de imágenes.
+-   **item\_post.xml**: Layout para cada publicación de viaje en la lista.
+-   **item\_slide\_image.xml**: Layout para cada imagen en la presentación de diapositivas.
+-   **progress\_layout.xml**: Layout para mostrar el progreso de carga.
+-   **spinner\_item.xml**: Layout para los elementos del spinner.
 
 ### `/res/menu`
-- **bottom_navigation_menu.xml**: Menú de navegación inferior con opciones para **Home**, **Perfil**, **Chats** y **Filtros**.
+
+-   **bottom\_navigation\_menu.xml**: Menú de navegación inferior con opciones para **Home**, **Perfil**, **Chats** y **Filtros**.
 
 ## Notas Importantes
 
-- **Firebase Authentication**: La autenticación de usuarios se realiza mediante Firebase Authentication. Actualmente, los datos de usuario solo se registran en Firebase Authentication, pero se tiene planeado implementar el uso de Firebase para almacenar otros datos de usuario en una base de datos.
-- **Validaciones de Usuario**: Es importante implementar validaciones adecuadas para el registro y la actualización de los datos de usuario para asegurar la integridad de la información.
-- **Gestión de Estados**: Dado que la aplicación usa MVVM, los cambios en el modelo se reflejan automáticamente en la vista, mejorando la respuesta de la interfaz y simplificando el manejo de estados.
+-   **Parse**: La autenticación de usuarios y la persistencia de datos se realizan mediante Parse.
+-   **Validaciones de Usuario**: Es importante implementar validaciones adecuadas para el registro y la actualización de los datos de usuario para asegurar la integridad de la información.
+-   **Gestión de Estados**: Dado que la aplicación usa MVVM, los cambios en el modelo se reflejan automáticamente en la vista, mejorando la respuesta de la interfaz y simplificando el manejo de estados.
+-   **Actualización de Perfil**: La funcionalidad de actualización de la información del perfil del usuario tiene problemas pendientes de resolver.
+-   **Filtros y Chats**: Los fragmentos de Filtros y Chats están pendientes de implementación.
 
 ## Contacto
 
-Para cualquier consulta o comentario, puedes contactarme a través de [LinkedIn](https://www.linkedin.com/in/nkaminski-profile/) o [GitHub](https://github.com/N-Kaminski).
+Para cualquier consulta o comentario, puedes contactarme a través de [LinkedIn](https://www.linkedin.com/in/nkaminski-profile/) o [GitHub](https://github.com/nicoKaminski).
 
 ---
 
