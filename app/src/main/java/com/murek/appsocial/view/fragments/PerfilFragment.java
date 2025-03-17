@@ -220,17 +220,17 @@ public class PerfilFragment extends Fragment {
         layoutActualizarDatos = binding.getRoot().findViewById(R.id.layout_updateUser);
         binding.btnUpdatePerfil.setOnClickListener(v -> {
             layoutActualizarDatos.setVisibility(View.VISIBLE);
-            binding.btnUpdatePerfil.setVisibility(View.GONE);
+//            binding.btnUpdatePerfil.setVisibility(View.GONE);
         });
         binding.btnUpdateUser.setOnClickListener(v -> {
             if (updateUser()) {
                 layoutActualizarDatos.setVisibility(View.GONE);
-                binding.btnUpdatePerfil.setVisibility(View.VISIBLE);
+//                binding.btnUpdatePerfil.setVisibility(View.VISIBLE);
             }
         });
         binding.btnCancelUpdateUser.setOnClickListener(v -> {
             layoutActualizarDatos.setVisibility(View.GONE);
-            binding.btnUpdatePerfil.setVisibility(View.VISIBLE);
+//            binding.btnUpdatePerfil.setVisibility(View.VISIBLE);
         });
     }
 
