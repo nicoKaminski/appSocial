@@ -51,14 +51,12 @@ public class FiltrosFragment extends Fragment {
                 requireContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categorias));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategoriaFiltro.setAdapter(adapter);
-
         spCategoriaFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 categoriaSeleccionada = parent.getItemAtPosition(position).toString();
                 cargarPostsFiltrados();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 categoriaSeleccionada = null;

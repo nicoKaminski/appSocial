@@ -71,7 +71,10 @@ public class UserProvider {
         MutableLiveData<User> userLiveData = new MutableLiveData<>();
         ParseUser parseUser = ParseUser.getCurrentUser();
         if (parseUser != null) {
-            User user = (User) parseUser;
+            User user = new User();
+            user.setUserId(parseUser.getObjectId());
+            user.setUserName(parseUser.getUsername());
+            user.setUserEmail(parseUser.getEmail());
             userLiveData.setValue(user); // Establece el usuario en LiveData
             Log.d("UserProvider", "Usuario actual obtenido: " + user.getObjectId());
         } else {
@@ -84,33 +87,30 @@ public class UserProvider {
     // Método para actualizar un usuario
     public LiveData<Boolean> updateUser(User user) {
         MutableLiveData<Boolean> updateResult = new MutableLiveData<>();
-
-       /*
-       user.saveInBackground(e -> {
-            if (e == null) {
-                updateResult.setValue(true);
-                Log.d("UserProvider", "Usuario actualizado: " + user.getObjectId());
-            } else {
-                updateResult.setValue(false);
-                Log.e("UserProvider", "Error actualizando usuario", e);
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        if (parseUser != null) {
+            parseUser.setUsername(user.getUserName());
+            parseUser.setEmail(user.getUserEmail());
+            // Solo actualiza la contraseña si el usuario ingresó una nueva
+            if (!user.getUserpassword().isEmpty()) {
+                parseUser.setPassword(user.getUserpassword());
             }
-        });
-        */
-
-        user.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
+            parseUser.saveInBackground(e -> {
                 if (e == null) {
                     updateResult.setValue(true);
-                    Log.d("UserProvider", "Usuario actualizado exitosamente: " + user.getObjectId());
+                    Log.d("UserProvider", "Usuario actualizado exitosamente");
                 } else {
                     updateResult.setValue(false);
-                    Log.e("UserProvider", "Error actualizando usuario: ", e);
+                    Log.e("UserProvider", "Error actualizando usuario: " + e.getMessage());
                 }
-            }
-        });
+            });
+        } else {
+            updateResult.setValue(false);
+            Log.e("UserProvider", "No hay usuario autenticado para actualizar");
+        }
         return updateResult;
     }
+
 
     // Método para obtener un usuario por ID
     public LiveData<User> getUserById(String userId) {

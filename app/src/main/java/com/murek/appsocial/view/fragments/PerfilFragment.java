@@ -55,9 +55,7 @@ public class PerfilFragment extends Fragment {
     private PostViewModel postViewModel;
     private PostAdapter postAdapter;
     private UserViewModel userViewModel;
-    private User currentUser;
     private LinearLayout layoutActualizarDatos;
-    private int cont = 0;
 
     public PerfilFragment(){}
 
@@ -72,8 +70,8 @@ public class PerfilFragment extends Fragment {
         setupProfileImageClick();
         setupRecyclerView();
         observeUserPosts();
-        setupUpdateProfileFields();
-        setupTextInputListeners();
+        vistaCamposUpdate();
+
         return binding.getRoot();
     }
 
@@ -216,102 +214,101 @@ public class PerfilFragment extends Fragment {
         });
     }
 
-    private void setupUpdateProfileFields() {
+    // Método para configurar los campos de actualización de perfil
+
+    private void cargarDatosUsuario() {
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        if (parseUser != null) {
+            binding.etUpdateUsuario.setText(parseUser.getUsername());
+            binding.etUpdateMail.setText(parseUser.getEmail());
+            binding.etUpdatePass.setText(""); // Por seguridad, no mostrar la contraseña actual
+        } else {
+            Log.e("PerfilFragment", "parseUser es null, no se pueden cargar los datos.");
+        }
+    }
+
+    private void vistaCamposUpdate() {
         layoutActualizarDatos = binding.getRoot().findViewById(R.id.layout_updateUser);
         binding.btnUpdatePerfil.setOnClickListener(v -> {
             layoutActualizarDatos.setVisibility(View.VISIBLE);
-//            binding.btnUpdatePerfil.setVisibility(View.GONE);
+            cargarDatosUsuario();
+            updateBtnManager(); // Habilita/deshabilita el botón de actualizar cuando se abre el formulario
         });
-        binding.btnUpdateUser.setOnClickListener(v -> {
-            if (updateUser()) {
-                layoutActualizarDatos.setVisibility(View.GONE);
-//                binding.btnUpdatePerfil.setVisibility(View.VISIBLE);
-            }
-        });
-        binding.btnCancelUpdateUser.setOnClickListener(v -> {
-            layoutActualizarDatos.setVisibility(View.GONE);
-//            binding.btnUpdatePerfil.setVisibility(View.VISIBLE);
-        });
+        binding.btnUpdateUser.setOnClickListener(v -> updateUser());
+        binding.btnCancelUpdateUser.setOnClickListener(v -> layoutActualizarDatos.setVisibility(View.GONE));
+        // Llamar a updateBtnManager() en cada cambio en los campos de texto
+        binding.etUpdateUsuario.addTextChangedListener(new SimpleTextWatcher(() -> updateBtnManager()));
+        binding.etUpdateMail.addTextChangedListener(new SimpleTextWatcher(() -> updateBtnManager()));
+        binding.etUpdatePass.addTextChangedListener(new SimpleTextWatcher(() -> updateBtnManager()));
     }
+
+    // Clase utilitaria para evitar escribir el mismo TextWatcher varias veces
+    class SimpleTextWatcher implements TextWatcher {
+        private final Runnable callback;
+        SimpleTextWatcher(Runnable callback) {
+            this.callback = callback;
+        }
+        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        @Override public void afterTextChanged(Editable s) { callback.run(); }
+    }
+
 
     private void updateBtnManager() {
-        boolean isChanged = false;
-        if (currentUser != null) {
-            if (!binding.etUpdateUsuario.getText().toString().equals(currentUser.getUserName())) {
-                isChanged = true;
-            }
-            if (!binding.etUpdateMail.getText().toString().equals(currentUser.getUserEmail())) {
-                isChanged = true;
-            }
-            if (!binding.etUpdatePass.getText().toString().equals(currentUser.getUserpassword())) {
-                isChanged = true;
-            }
-        }
-        if (isChanged) {
-            binding.btnUpdateUser.setEnabled(true);
-        } else {
-            binding.btnUpdateUser.setEnabled(false);
-        }
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        if (parseUser == null) return;
+        boolean isChanged =
+                !binding.etUpdateUsuario.getText().toString().equals(parseUser.getUsername()) ||
+                        !binding.etUpdateMail.getText().toString().equals(parseUser.getEmail()) ||
+                        !binding.etUpdatePass.getText().toString().isEmpty(); // Solo si se ingresó una nueva contraseña
+
+        binding.btnUpdateUser.setEnabled(isChanged);
     }
 
-    private void setupTextInputListeners() {
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                cont++;
-                if (cont > 3){
-                    Log.d("PerfilFragment", "textChanged: ");
-                    updateBtnManager();
-                }
-            }
-        };
-        binding.etUpdateUsuario.addTextChangedListener(textWatcher);
-        binding.etUpdateMail.addTextChangedListener(textWatcher);
-        binding.etUpdatePass.addTextChangedListener(textWatcher);
-    }
-
-    private boolean updateUser() {
+    private void updateUser() {
+        Log.d("PerfilFragment", "Entrando a updateUser()");
         String usuario = binding.etUpdateUsuario.getText().toString().trim();
         String email = binding.etUpdateMail.getText().toString().trim();
         String pass = binding.etUpdatePass.getText().toString().trim();
+        Log.d("PerfilFragment", "Datos ingresados: " + usuario + " | " + email + " | " + pass);
 
         if (!Validaciones.validarTexto(usuario)) {
             showToast("Usuario incorrecto");
-            return false;
+            return;
         }
         if (!Validaciones.validarEmail(email)) {
             showToast("El correo no es válido");
-            return false;
+            return;
         }
-
         if (!Validaciones.controlarPassword(pass)) {
             showToast("Password incorrecto");
-            return false;
+            return;
         }
-
-        if (currentUser != null) {
-            User user = currentUser;
-            user.setUserEmail(email);
-            user.setUserName(usuario);
-            user.setUserpassword(pass);
-
-            userViewModel.updateUser(user).observe(getViewLifecycleOwner(),updateResult ->{
-                if (updateResult) {
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        if (parseUser != null) {
+            parseUser.setUsername(usuario);
+            parseUser.setEmail(email);
+            if (!pass.isEmpty()) {
+                parseUser.setPassword(pass);
+            }
+            binding.btnUpdateUser.setEnabled(false);
+            parseUser.saveInBackground(e -> {
+                binding.btnUpdateUser.setEnabled(true);
+                if (e == null) {
+                    Log.d("PerfilFragment", "Actualización exitosa en Parse");
                     showToast("Actualización exitosa");
                     displayUserInfo();
+                    layoutActualizarDatos.setVisibility(View.GONE);
                 } else {
-                    showToast("Actualización fallida");
+                    Log.e("PerfilFragment", "Error al actualizar usuario: " + e.getMessage());
+                    showToast("Error al actualizar: " + e.getMessage());
                 }
             });
+        } else {
+            showToast("Usuario no autenticado");
         }
-        return true;
     }
+
 
     private void showToast(String message) {
         if (message != null) {

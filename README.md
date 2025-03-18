@@ -20,7 +20,7 @@ appSocial es una aplicación móvil de tipo social. Actualmente, permite a los u
    -   **Home**: Página de inicio de la aplicación (publicaciones).
    -   **Perfil**: Pantalla donde el usuario puede ver y editar su perfil, y gestionar sus publicaciones.
    -   **Chats**: Página para iniciar y gestionar conversaciones (pendiente de implementación).
-   -   **Filtros**: Opciones de filtrado de contenido (pendiente de implementación).
+   -   **Filtros**: Opciones de filtrado de contenido.
 
 2.  **Vista de Login**: La vista principal de la aplicación es una página de inicio de sesión. Los usuarios pueden iniciar sesión si ya tienen una cuenta registrada. En caso de no estar registrados, son dirigidos a la página de registro.
 
@@ -36,6 +36,9 @@ appSocial es una aplicación móvil de tipo social. Actualmente, permite a los u
    -   Los usuarios pueden ver sus publicaciones en su perfil.
    -   Los usuarios pueden eliminar sus publicaciones desde su perfil.
    -   Los usuarios pueden actualizar su información de perfil (con problemas pendientes).
+
+6.  **Filtros**: Los usuarios pueden filtrar las publicaciones por diferentes criterios.
+
 
 ## Estructura del Proyecto
 
@@ -81,7 +84,7 @@ La estructura del proyecto sigue el patrón MVVM (Model-View-ViewModel) y está 
 #### `/view/fragments`
 
 -   **ChatsFragment.java**: Fragmento para gestionar las conversaciones (en evaluacion de si se utilizara o no).
--   **FiltrosFragment.java**: Fragmento donde se gestionan los filtros (pendiente de implementación).
+-   **FiltrosFragment.java**: Fragmento donde se gestionan los filtros.
 -   **HomeFragment.java**: Fragmento que muestra las publicaciones de viaje.
 -   **PerfilFragment.java**: Fragmento para ver y editar el perfil de usuario, y gestionar las publicaciones del usuario.
 
@@ -101,9 +104,8 @@ La estructura del proyecto sigue el patrón MVVM (Model-View-ViewModel) y está 
 -   **activity\_post.xml**: Layout para la creación de publicaciones.
 -   **activity\_post\_detail.xml**: Layout para los detalles de una publicación.
 -   **activity\_register.xml**: Layout para el registro de usuarios.
--   **fragment\_edit\_perfil.xml**: Layout para editar el perfil del usuario (pendiente de implementación).
 -   **fragment\_chats.xml**: Layout para la sección de chats (pendiente de implementación).
--   **fragment\_filtros.xml**: Layout para la sección de filtros (pendiente de implementación).
+-   **fragment\_filtros.xml**: Layout para la sección de filtros.
 -   **fragment\_home.xml**: Layout para la pantalla de inicio (publicaciones).
 -   **fragment\_perfil.xml**: Layout para el perfil de usuario.
 -   **item\_comentario.xml**: Layout para cada comentario en la lista.
@@ -122,8 +124,8 @@ La estructura del proyecto sigue el patrón MVVM (Model-View-ViewModel) y está 
 -   **Parse**: La autenticación de usuarios y la persistencia de datos se realizan mediante Parse.
 -   **Validaciones de Usuario**: Es importante implementar validaciones adecuadas para el registro y la actualización de los datos de usuario para asegurar la integridad de la información.
 -   **Gestión de Estados**: Dado que la aplicación usa MVVM, los cambios en el modelo se reflejan automáticamente en la vista, mejorando la respuesta de la interfaz y simplificando el manejo de estados.
--   **Actualización de Perfil**: La funcionalidad de actualización de la información del perfil del usuario tiene problemas pendientes de resolver.
--   **Filtros y Chats**: Los fragmentos de Filtros y Chats están pendientes de implementación.
+- **Chats**: El fragmento para gestionar conversaciones está pendiente de implementación y se está evaluando su inclusión en futuras versiones.
+
 
 ## Contacto
 

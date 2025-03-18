@@ -205,7 +205,7 @@ public class PostProvider {
                     userObject.fetchIfNeeded();
                     User user = new User();
                     user.setUsername(userObject.getString("username"));
-                    user.setEmail(userObject.getString("email"));
+                    user.setUserEmail(userObject.getString("email"));
                     user.setUserFotoPerfil(userObject.getString("foto_perfil"));
                     post.setUser(user);
                 } catch (ParseException userFetchException) {
