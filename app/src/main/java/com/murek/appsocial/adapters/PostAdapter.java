@@ -100,7 +100,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                     } else {
                         Log.d("PostAdapter", "User is null");
                     }
-
                     // Lista de imágenes
                     ArrayList<String> imageUrls = new ArrayList<>(postDetail.getImagenPost());
                     intent.putStringArrayListExtra("imagenes", imageUrls);

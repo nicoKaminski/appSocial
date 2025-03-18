@@ -49,8 +49,6 @@ public class PostDetailActivity extends AppCompatActivity {
         if (postId != null) {
             viewModel.fetchComments(postId);
         }
-
-        //profe:*******************************
         binding.recyclerComentarios.setLayoutManager(new LinearLayoutManager(this));
         comentarioAdapter = new ComentarioAdapter(new ArrayList<>());
         binding.recyclerComentarios.setAdapter(comentarioAdapter);
@@ -70,7 +68,6 @@ public class PostDetailActivity extends AppCompatActivity {
         } else {
             binding.btnEliminarPost.setVisibility(View.GONE);
         }
-        //profe**********************************************
         binding.fabChat.setOnClickListener(v -> showDialogComment());
         manejarEventos();
     }

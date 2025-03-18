@@ -20,53 +20,7 @@ import java.util.List;
 
 public class PostProvider {
 
-    /**
-     * CODIGO VIEJO sin ParseObject.....
-     * public LiveData<String> addPost(Post post) {
-     * MutableLiveData<String> result = new MutableLiveData<>();
-     * <p>
-     * if (post.getImagenPost() == null || post.getImagenPost().isEmpty()) {
-     * result.setValue("Error: El post debe tener al menos una imagen.");
-     * return result;
-     * }
-     * <p>
-     * ParseObject postObject = new ParseObject("Post");
-     * postObject.put("user", ParseUser.getCurrentUser());
-     * postObject.put("titulo", post.getTituloPost());
-     * postObject.put("descripcion", post.getDescripcionPost());
-     * postObject.put("duracion", post.getDuracionPost());
-     * postObject.put("categoria", post.getCategoriaPost());
-     * postObject.put("presupuesto", post.getPresupuestoPost());
-     * <p>
-     * postObject.saveInBackground(imgError -> {
-     * if (imgError == null) {
-     * ParseRelation<ParseObject> relation = postObject.getRelation("images");
-     * for (String url : post.getImagenPost()) {
-     * ParseObject imgObject = new ParseObject("Image");
-     * imgObject.put("url", url);
-     * imgObject.saveInBackground(imgSaveError -> {
-     * if (imgSaveError == null) {
-     * relation.add(imgObject);
-     * postObject.saveInBackground(saveError -> {
-     * if (saveError == null) {
-     * result.setValue("Post publicado");
-     * } else {
-     * result.setValue("Error al guardar la relacion "+saveError.getMessage());
-     * }
-     * });
-     * } else {
-     * result.setValue("Error al guardar la imagen "+imgSaveError.getMessage());
-     * }
-     * });
-     * }
-     * } else {
-     * result.setValue("Error al guardar el post "+imgError.getMessage());
-     * }
-     * });
-     * return result;
-     * }
-     */
-
+    // Agregar post
     public LiveData<String> addPost(Post post) {
         MutableLiveData<String> result = new MutableLiveData<>();
         post.put("titulo", post.getTituloPost());
@@ -113,6 +67,7 @@ public class PostProvider {
         return result;
     }
 
+    // Obtener posts del usuario
     public LiveData<List<Post>> getPostsByCurrentUser(int page) {
         MutableLiveData<List<Post>> result = new MutableLiveData<>();
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -120,14 +75,12 @@ public class PostProvider {
             result.setValue(new ArrayList<>());
             return result;
         }
-
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.whereEqualTo("user", currentUser);
         query.include("user");
         query.orderByDescending("createdAt"); // Ordenar por fecha de creación
         query.setLimit(5); // Límite de posts por página
         query.setSkip(page * 5); // Saltar posts según la página
-
         query.findInBackground((posts, e) -> {
             if (e == null) {
                 result.setValue(posts);
@@ -139,6 +92,7 @@ public class PostProvider {
         return result;
     }
 
+    // Obtener todos los posts
     public LiveData<List<Post>> getAllPosts(int page) {
         MutableLiveData<List<Post>> result = new MutableLiveData<>();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
@@ -202,6 +156,7 @@ public class PostProvider {
         return result;
     }
 
+    // Eliminar post
     public LiveData<String> deletePost(String postId) {
         MutableLiveData<String> result = new MutableLiveData<>();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
@@ -224,6 +179,7 @@ public class PostProvider {
         return result;
     }
 
+    // Obtener post por ID
     public LiveData<Post> getPostDetail(String postId) {
         MutableLiveData<Post> result = new MutableLiveData<>();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
@@ -240,47 +196,10 @@ public class PostProvider {
                         imageUrls.add(imageObject.getString("url"));
                     }
                     post.setImagenPost(imageUrls);
-
-                    // Manejar usuario
-                    /* CODIGO MIO PARA PROBAR EL DE LA PROFE
-
-                    ParseUser parseUser = post.getParseUser("user");
-                    if (parseUser != null) {
-                        parseUser.fetchIfNeeded();
-                        User user = new User();
-                        user.setObjectId(parseUser.getObjectId());
-                        user.setUserName(parseUser.getUsername());
-                        // Verificar si el usuario actual es el dueño del post
-                        ParseUser currentUser = ParseUser.getCurrentUser();
-                        if (currentUser != null && parseUser.getObjectId().equals(currentUser.getObjectId())) {
-                            user.setUserEmail(parseUser.getEmail());
-                        } else {
-                            user.setUserEmail("Contacto privado");
-                        }
-                        user.setUserFotoPerfil(parseUser.getString("foto_perfil"));
-                        post.setUser(user);
-
-                        Log.d("PostProvider", "Usuario cargado - Username: " + user.getUserName() +
-                                ", Email: " + user.getUserEmail() +
-                                ", Es usuario actual: " + (currentUser != null && parseUser.getObjectId().equals(currentUser.getObjectId())));
-                    }
-                result.setValue(post);
-                } catch (ParseException parseException) {
-                    Log.e("PostProvider", "Error al cargar datos: " + parseException.getMessage());
-                    parseException.printStackTrace();
-                }
-
-            } else {
-                Log.e("ParseError", "Error al obtener el post: ", e);
-                result.setValue(null);
-            }
-        });
-
-                     */
-
                 } catch (ParseException parseException) {
                     parseException.printStackTrace();
                 }
+                // Manejar usuario
                 ParseObject userObject = post.getParseObject("user");
                 if (userObject != null) try {
                     userObject.fetchIfNeeded();
@@ -295,7 +214,6 @@ public class PostProvider {
                 else {
                     Log.w("PostDetail", "El usuario asociado al post es nulo.");
                 }
-
                 result.setValue(post);
             } else {
                 Log.e("ParseError", "Error al obtener el post: ", e);
@@ -305,9 +223,29 @@ public class PostProvider {
         return result;
     }
 
+    // Obtener posts por categoría
+    public LiveData<List<Post>> getPostsByCategory(String categoria) {
+        MutableLiveData<List<Post>> result = new MutableLiveData<>();
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include("user");
+        query.orderByDescending("createdAt");
+        if (categoria != null && !categoria.isEmpty()) {
+            query.whereEqualTo("categoria", categoria);
+        }
+        query.findInBackground((posts, e) -> {
+            if (e == null) {
+                result.setValue(posts);
+            } else {
+                result.setValue(new ArrayList<>());
+                Log.e("ParseError", "Error al recuperar los posts por categoría: ", e);
+            }
+        });
+        return result;
+    }
+
+
     public interface CommentsCallback {
         void onSuccess(List<ParseObject> comments);
-
         void onFailure(Exception e);
     }
 

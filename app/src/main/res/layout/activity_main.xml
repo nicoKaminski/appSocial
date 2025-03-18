@@ -61,7 +61,7 @@
                     android:id="@+id/etMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ingrese su email"
+                    android:hint="@string/mail"
                     android:inputType="textEmailAddress"
                     android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
@@ -95,7 +95,7 @@
                     android:id="@+id/etPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ingrese su password"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
@@ -111,7 +111,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="INICIAR SESIÓN"
+            android:text="@string/login"
             android:textSize="20dp"
             android:textStyle="bold">
         </Button>
@@ -129,7 +129,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No tienes una cuenta? "
+                android:text="@string/sincuenta"
                 android:textSize="17sp">
             </TextView>
 
@@ -137,7 +137,7 @@
                 android:id="@+id/tvRegistrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Registrate AQUI "
+                android:text="@string/registrate"
                 android:textSize="17sp"
                 android:textStyle="bold">
             </TextView>

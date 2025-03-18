@@ -43,18 +43,9 @@ public class PostViewModel extends ViewModel {
         return postProvider.getPostsByCurrentUser(page);
     }
 
-
-    /** CODIGO VIEJO......
-    public void uploadPost(Post post) {
-        postProvider.addPost(post).observeForever(result -> {
-            if ("Post publicado".equals(result)) {
-                postSuccess.setValue(true);
-            } else {
-                postSuccess.setValue(false);
-            }
-        });
+    public LiveData<List<Post>> getPostsByCategory(String categoria) {
+        return postProvider.getPostsByCategory(categoria);
     }
-    */
 
 }
 

@@ -14,10 +14,29 @@
     <string name="presupuesto">Presupuesto estimado (USD)...</string>
     <string name="publicar">Publicar</string>
 
+    <!-- Cuenta -->
+    <string name="usuario">Ingrese su usuario</string>
+    <string name="mail">Ingrese su email</string>
+    <string name="password">Ingrese su contraseña</string>
+    <string name="confirmpassword">Confirme su contraseña</string>
+    <string name="register">Registrar</string>
+    <string name="registrate">Registrate AQUI </string>
+    <string name="login">INICIAR SESIÓN</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="edit">Editar</string>
+
+    <!-- Botones -->
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="agregar">Agregar</string>
+
     <!-- varios -->
     <string name="cargando">Cargando...</string>
     <string name="redsocial">Instagram</string>
     <string name="publicaciones">PUBLICACIONES</string>
+    <string name="sincuenta">No tienes una cuenta? </string>
 
 
     <string-array name="categorias">
