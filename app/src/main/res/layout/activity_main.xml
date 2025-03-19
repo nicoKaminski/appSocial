@@ -30,7 +30,8 @@
                 android:layout_width="320dp"
                 android:layout_height="180dp"
                 android:layout_gravity="center|top"
-                android:src="@drawable/login_white">
+                android:src="@drawable/login_white"
+                android:contentDescription="@string/logo">
             </ImageView>
         </io.github.florent37.shapeofview.shapes.DiagonalView>
 
@@ -47,9 +48,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_mail">
-            </ImageView>
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_mail"
+                android:contentDescription="@string/imagen"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -81,9 +82,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_pass">
-            </ImageView>
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_pass"
+                android:contentDescription="@string/imagen"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -112,9 +113,8 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="@string/login"
-            android:textSize="20dp"
-            android:textStyle="bold">
-        </Button>
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <!--Texto-->
         <LinearLayout
@@ -130,8 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sincuenta"
-                android:textSize="17sp">
-            </TextView>
+                android:textSize="17sp"/>
 
             <TextView
                 android:id="@+id/tvRegistrar"
@@ -139,10 +138,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/registrate"
                 android:textSize="17sp"
-                android:textStyle="bold">
-            </TextView>
+                android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

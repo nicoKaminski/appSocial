@@ -43,7 +43,7 @@
                     android:gravity="center"
                     android:text="@string/perfil"
                     android:textColor="@color/colorAccent"
-                    android:textSize="28dp" />
+                    android:textSize="28sp" />
 
                 <!--Nombre y mail-->
                 <LinearLayout
@@ -59,7 +59,7 @@
                         android:id="@+id/name_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Nombre"
+                        android:hint="@string/nombre"
                         android:text=""
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent"
@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="7dp"
-                        android:hint="mail"
+                        android:hint="@string/mailperfil"
                         android:text=""
                         android:textColor="@color/colorAccent"
                         android:textSize="13sp"
@@ -90,7 +90,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="60dp"
+                        android:layout_marginStart="60dp"
                         android:layout_marginTop="210dp"
                         android:background="@drawable/ic_edit"
                         android:gravity="center" />
@@ -100,8 +100,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:layout_marginLeft="30dp"
+                    android:layout_gravity="center|start"
+                    android:layout_marginStart="30dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -110,7 +110,7 @@
                         android:id="@+id/cantPost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="0"
+                        android:hint="@string/publicado"
                         android:textColor="@color/colorAccent"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Aún no tienes publicaciones"
+                android:text="@string/post"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="18sp"
                 android:visibility="gone" />
@@ -189,8 +189,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_usuario" />
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_usuario"
+                android:contentDescription="@string/imagen"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -200,7 +201,7 @@
                     android:id="@+id/etUpdateUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre de Usuario"
+                    android:hint="@string/usuario"
                     android:textColor="@color/colorPrimaryDark"
                     android:inputType="text"
                     android:singleLine="true"/>
@@ -220,8 +221,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_mail" />
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_mail"
+                android:contentDescription="@string/imagen"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -233,7 +235,7 @@
                     android:id="@+id/etUpdateMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Correo electronico"
+                    android:hint="@string/mail"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -252,8 +254,9 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_pass" />
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/ic_pass"
+                android:contentDescription="@string/imagen"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -265,7 +268,7 @@
                     android:id="@+id/etUpdatePass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contraseña"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
                     android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -287,8 +290,8 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:enabled="true"
-                android:text="Actualizar"
-                android:textSize="18dp"
+                android:text="@string/actualizar"
+                android:textSize="18sp"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/colorPrimaryDark" />
 
@@ -297,11 +300,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:enabled="true"
-                android:text="Cancelar"
-                android:textSize="18dp"
+                android:text="@string/cancelar"
+                android:textSize="18sp"
                 android:textColor="@color/white" />
         </GridLayout>
     </LinearLayout>

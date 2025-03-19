@@ -3,6 +3,7 @@
     <string name="chats">Chats</string>
     <string name="perfil">Tu Perfil</string>
     <string name="filtros">Filtros</string>
+    <string name="home">Home</string>
     <string name="mis_experiencias">Mis Experiencias</string>
     <!-- Post -->
     <string name="lugar">Lugar que visitaste...</string>
@@ -13,6 +14,11 @@
     <string name="duracion">Duracion del viaje (ej. 3 días)...</string>
     <string name="presupuesto">Presupuesto estimado (USD)...</string>
     <string name="publicar">Publicar</string>
+    <string name="publicado">0</string>
+    <string name="post">Aún no tienes publicaciones</string>
+    <string name="nombre">Nombre</string>
+    <string name="mailperfil">mail del perfil</string>
+    <string name="comentarios">Comentarios</string>
 
     <!-- Cuenta -->
     <string name="usuario">Ingrese su usuario</string>
@@ -21,9 +27,11 @@
     <string name="confirmpassword">Confirme su contraseña</string>
     <string name="register">Registrar</string>
     <string name="registrate">Registrate AQUI </string>
+    <string name="registro">REGISTRATE AHORA! </string>
     <string name="login">INICIAR SESIÓN</string>
     <string name="logout">Cerrar Sesión</string>
     <string name="edit">Editar</string>
+    <string name="close">Cerrar Sesion</string>
 
     <!-- Botones -->
     <string name="cancelar">Cancelar</string>
@@ -31,14 +39,22 @@
     <string name="eliminar">Eliminar</string>
     <string name="editar">Editar</string>
     <string name="agregar">Agregar</string>
+    <string name="back">Boton Back</string>
+    <string name="eliminarpost">ELIMINAR POST</string>
+    <string name="registrar">REGISTRATE!</string>
+    <string name="actualizar">Actualizar</string>
 
     <!-- varios -->
     <string name="cargando">Cargando...</string>
     <string name="redsocial">Instagram</string>
     <string name="publicaciones">PUBLICACIONES</string>
     <string name="sincuenta">No tienes una cuenta? </string>
+    <string name="subirimagen">subir imagen</string>
+    <string name="imagen">es una imagen</string>
+    <string name="logo">es el logo</string>
+    <string name="postfiltro">No hay publicaciones en esta categoría</string>
 
-
+    <!-- spinner -->
     <string-array name="categorias">
         <item>Naturaleza</item>
         <item>Playa</item>
@@ -51,6 +67,7 @@
         <item>Nieve</item>
     </string-array>
 
+    <!-- conexion -->
     <string name="back4app_server_url">https://parseapi.back4app.com</string>
     <string name="back4app_app_id">iLeodN5k4eHybiaRmFxwFzWzLyNJI0xlZ5UEH85m</string>
     <string name="back4app_client_key">AS3A1Pe7T696KBEyQPMnOo7gnm49REh73heh2kFl</string>

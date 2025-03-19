@@ -1,6 +1,5 @@
 package com.murek.appsocial.view.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -31,19 +29,18 @@ public class FiltrosFragment extends Fragment {
     private PostAdapter postAdapter;
     private PostViewModel postViewModel;
     private String categoriaSeleccionada = null;
+    private FragmentFiltrosBinding binding;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_filtros, container, false);
-
-        spCategoriaFiltro = view.findViewById(R.id.spCategoriaFiltro);
-        recyclerViewFiltros = view.findViewById(R.id.recyclerViewFiltros);
-
+        binding = FragmentFiltrosBinding.inflate(inflater, container, false);
+        spCategoriaFiltro = binding.spCategoriaFiltro;
+        recyclerViewFiltros = binding.recyclerViewFiltros;
         setupCategorySpinner();
         setupRecyclerView();
-
-        return view;
+        return binding.getRoot();
     }
 
     private void setupCategorySpinner() {
@@ -75,8 +72,13 @@ public class FiltrosFragment extends Fragment {
             postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         }
         postViewModel.getPostsByCategory(categoriaSeleccionada).observe(getViewLifecycleOwner(), posts -> {
-            if (posts != null) {
+            if (posts != null && !posts.isEmpty()) {
                 postAdapter.updatePosts(posts);
+                binding.tvNoPosts.setVisibility(View.GONE); // Ocultar mensaje
+                binding.recyclerViewFiltros.setVisibility(View.VISIBLE); // Mostrar RecyclerView
+            } else {
+                binding.tvNoPosts.setVisibility(View.VISIBLE); // Mostrar mensaje
+                binding.recyclerViewFiltros.setVisibility(View.GONE); // Ocultar RecyclerView
             }
         });
     }

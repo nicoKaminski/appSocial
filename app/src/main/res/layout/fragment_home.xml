@@ -35,5 +35,6 @@
         android:scaleType="centerCrop"
         android:layout_margin="30dp"
         android:layout_gravity="end|bottom"
-        android:padding="7dp"/>
+        android:padding="7dp"
+        android:contentDescription="@string/agregar"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

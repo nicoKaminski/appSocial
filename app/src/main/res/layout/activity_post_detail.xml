@@ -23,10 +23,11 @@
                 android:id="@+id/circuloBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_margin="16dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/back"/>
 
             <FrameLayout
                 android:id="@+id/headerPostDetail"
@@ -62,7 +63,7 @@
                     android:id="@+id/nameUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre"
+                    android:hint="@string/nombre"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -72,7 +73,7 @@
                     android:id="@+id/emailUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Mail"
+                    android:hint="@string/mailperfil"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     tools:ignore="TextSizeCheck" />
@@ -182,7 +183,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Comentarios"
+                        android:text="@string/comentarios"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimary"
@@ -202,7 +203,7 @@
                 android:id="@+id/btnEliminarPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Eliminar Post"
+                android:text="@string/eliminarpost"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
@@ -216,7 +217,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/ic_chat"
-        app:contentDescription="Comunicate" />
+        android:contentDescription="@string/agregar"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

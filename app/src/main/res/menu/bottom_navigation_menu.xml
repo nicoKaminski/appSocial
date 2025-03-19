@@ -4,21 +4,21 @@
         android:id="@+id/navItemHome"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navItemFiltros"
         android:enabled="true"
         android:icon="@drawable/ic_filtro"
-        android:title="Filtros" />
+        android:title="@string/filtros" />
     <item
         android:id="@+id/navItemCharts"
         android:enabled="true"
         android:icon="@drawable/ic_chat"
-        android:title="Chats" />
+        android:title="@string/chats" />
     <item
         android:id="@+id/navItemPerfil"
         android:enabled="true"
         android:icon="@drawable/ic_person"
-        android:title="Perfil" />
+        android:title="@string/perfil" />
 
 </menu>

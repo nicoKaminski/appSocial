@@ -22,32 +22,31 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                />
+                android:background="@color/colorPrimary"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="REGISTRATE AHORA!"
+                android:text="@string/registro"
                 android:textColor="@color/colorAccent"
-                android:textSize="24dp"
-                android:textStyle="bold" />
+                android:textSize="24sp"
+                android:textStyle="bold"/>
 
             <ImageView
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/personblanco"
                 android:layout_gravity="center|bottom"
-                />
+                android:contentDescription="@string/imagen"/>
             <ImageView
                 android:id="@+id/circuloBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="15dp"
                 android:src="@drawable/ic_back"
-                />
+                android:contentDescription="@string/back"/>
         </io.github.florent37.shapeofview.shapes.ArcView>
 
         <!--Usuario-->
@@ -58,28 +57,25 @@
             android:gravity="center"
             android:layout_marginTop="50dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:layout_marginLeft="20dp">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_usuario"
-                android:layout_marginRight="5dp"
-                />
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/imagen"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundMode="none"
-                >
+                app:boxBackgroundMode="none">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etNewUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre de Usuario"
+                    android:hint="@string/usuario"
                     android:inputType="text"
-                    android:singleLine="true"
-                    >
+                    android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -92,14 +88,13 @@
             android:gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:layout_marginLeft="20dp">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_mail"
-                android:layout_marginRight="5dp"
-                />
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/imagen"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,10 +105,9 @@
                     android:id="@+id/etNewMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Correo electronico"
+                    android:hint="@string/mail"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    >
+                    android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -126,28 +120,25 @@
             android:gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:layout_marginLeft="20dp">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_pass"
-                android:layout_marginRight="5dp"
-                />
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/imagen"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundMode="none"
-                >
+                app:boxBackgroundMode="none">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassNew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contraseña"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:singleLine="true"
-                    >
+                    android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -160,28 +151,25 @@
             android:gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            >
+            android:layout_marginLeft="20dp">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_pass"
-                android:layout_marginRight="5dp"
-                />
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/imagen"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxBackgroundMode="none"
-                >
+                app:boxBackgroundMode="none">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassNewConfirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirmar contraseña"
+                    android:hint="@string/confirmpassword"
                     android:inputType="textPassword"
-                    android:singleLine="true"
-                    >
+                    android:singleLine="true">
                 </com.google.android.material.textfield.TextInputEditText>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
@@ -194,11 +182,9 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:gravity="center"
-            android:text="REGISTRATE!"
+            android:text="@string/registrar"
             android:textStyle="bold"
-            android:textSize="20dp"
-            >
+            android:textSize="20sp">
         </Button>
-
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
