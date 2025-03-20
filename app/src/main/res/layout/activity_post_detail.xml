@@ -37,9 +37,10 @@
                 <!-- Imagen de Perfil -->
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleImageView"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_gravity="bottom"
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/ic_person"
                     app:civ_border_color="@color/white"
@@ -52,8 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="30dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 tools:ignore="RtlHardcoded">
@@ -65,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/nombre"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <!--Email de Usuario-->
@@ -75,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/mailperfil"
                     android:textColor="@color/white"
-                    android:textSize="12sp"
+                    android:textSize="20sp"
                     tools:ignore="TextSizeCheck" />
             </LinearLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>

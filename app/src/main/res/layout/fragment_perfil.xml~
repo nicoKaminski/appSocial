@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|right"
-                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     tools:ignore="RtlHardcoded">
@@ -63,7 +63,7 @@
                         android:text=""
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -74,7 +74,7 @@
                         android:hint="@string/mailperfil"
                         android:text=""
                         android:textColor="@color/colorAccent"
-                        android:textSize="16sp"
+                        android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/publicado"
                         android:textColor="@color/colorAccent"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
                         tools:ignore="TextSizeCheck" />
 
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/publicaciones"
                         android:textColor="@color/colorAccent"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         android:textStyle="bold"
                         tools:ignore="TextSizeCheck" />
                 </LinearLayout>
