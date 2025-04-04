@@ -43,6 +43,7 @@ public class FiltrosFragment extends Fragment {
         return binding.getRoot();
     }
 
+    // Configuración del Spinner
     private void setupCategorySpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.categorias));
@@ -61,12 +62,14 @@ public class FiltrosFragment extends Fragment {
         });
     }
 
+    // Configuración del RecyclerView
     private void setupRecyclerView() {
         recyclerViewFiltros.setLayoutManager(new LinearLayoutManager(getContext()));
         postAdapter = new PostAdapter(new ArrayList<>());
         recyclerViewFiltros.setAdapter(postAdapter);
     }
 
+    // Método para cargar los posts filtrados
     private void cargarPostsFiltrados() {
         if (postViewModel == null) {
             postViewModel = new ViewModelProvider(this).get(PostViewModel.class);

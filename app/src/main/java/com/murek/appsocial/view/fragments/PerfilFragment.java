@@ -214,8 +214,9 @@ public class PerfilFragment extends Fragment {
         });
     }
 
-    // Método para configurar los campos de actualización de perfil
+    // ***** actualización de perfil *****
 
+    // Método para cargar los datos del usuario
     private void cargarDatosUsuario() {
         ParseUser parseUser = ParseUser.getCurrentUser();
         if (parseUser != null) {
@@ -227,6 +228,7 @@ public class PerfilFragment extends Fragment {
         }
     }
 
+    // Método para mostrar la vista de actualización de perfil
     private void vistaCamposUpdate() {
         layoutActualizarDatos = binding.getRoot().findViewById(R.id.layout_updateUser);
         binding.btnUpdatePerfil.setOnClickListener(v -> {
@@ -242,7 +244,7 @@ public class PerfilFragment extends Fragment {
         binding.etUpdatePass.addTextChangedListener(new SimpleTextWatcher(() -> updateBtnManager()));
     }
 
-    // Clase utilitaria para evitar escribir el mismo TextWatcher varias veces
+    // Clase utilitaria
     class SimpleTextWatcher implements TextWatcher {
         private final Runnable callback;
         SimpleTextWatcher(Runnable callback) {
@@ -253,7 +255,7 @@ public class PerfilFragment extends Fragment {
         @Override public void afterTextChanged(Editable s) { callback.run(); }
     }
 
-
+    // Método para habilitar/deshabilitar el botón de actualizar
     private void updateBtnManager() {
         ParseUser parseUser = ParseUser.getCurrentUser();
         if (parseUser == null) return;
@@ -265,6 +267,7 @@ public class PerfilFragment extends Fragment {
         binding.btnUpdateUser.setEnabled(isChanged);
     }
 
+    // Método para actualizar los datos del usuario
     private void updateUser() {
         Log.d("PerfilFragment", "Entrando a updateUser()");
         String usuario = binding.etUpdateUsuario.getText().toString().trim();

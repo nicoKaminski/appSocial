@@ -31,13 +31,6 @@ public class PostProvider {
         ParseUser currentUser = ParseUser.getCurrentUser();
         post.put("user", currentUser);
 
-//        // Establecer permisos de ACL
-//        ParseACL acl = new ParseACL();
-//        acl.setPublicReadAccess(true); // Permitir lectura a todos
-//        //acl.setWriteAccess(currentUser, true); // Solo el usuario que crea el post puede escribir (modificar)
-//        ParseACL.setDefaultACL(acl, true); //ver si esto va!
-//        post.setACL(acl); // Establecer ACL en el post
-
         // Guardar el post
         post.saveInBackground(e -> {
             if (e == null) {
@@ -98,8 +91,8 @@ public class PostProvider {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include("user"); // Incluye información del usuario
         query.orderByDescending("createdAt");
-        query.setLimit(5); // Límite de 5 posts por página
-        query.setSkip(page * 5); // Desplaza según la página (5 posts por página)
+//        query.setLimit(5); // Límite de 5 posts por página
+//        query.setSkip(page * 5); // Desplaza según la página (5 posts por página)
         query.findInBackground((posts, e) -> {
             if (e == null) {
                 List<Post> postList = new ArrayList<>();

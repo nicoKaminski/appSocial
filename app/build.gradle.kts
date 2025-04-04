@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -13,6 +16,16 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Leer claves desde local.properties
+        val localProperties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localProperties.load(FileInputStream(localPropertiesFile))
+        }
+
+        buildConfigField("String", "BACK4APP_SERVER_URL", "\"${localProperties.getProperty("BACK4APP_SERVER_URL", "")}\"")
+        buildConfigField("String", "BACK4APP_APP_ID", "\"${localProperties.getProperty("BACK4APP_APP_ID", "")}\"")
+        buildConfigField("String", "BACK4APP_CLIENT_KEY", "\"${localProperties.getProperty("BACK4APP_CLIENT_KEY", "")}\"")
     }
 
     buildTypes {
@@ -28,6 +41,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -54,34 +68,34 @@ dependencies {
         implementation("androidx.fragment:fragment-ktx:1.6.0")
         implementation("androidx.constraintlayout:constraintlayout:2.1.4")
         implementation("androidx.cardview:cardview:1.0.0") // Usar CardView de AndroidX
-        implementation ("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
+        implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
         implementation("androidx.recyclerview:recyclerview:1.2.1") // Usar RecyclerView de AndroidX
-        // Dependencias de testing
+// Dependencias de testing
         testImplementation("junit:junit:4.13.2")
         androidTestImplementation("androidx.test.ext:junit:1.1.5")
         androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-        // Glide para manejar imágenes
+// Glide para manejar imágenes
         implementation("com.github.bumptech.glide:glide:4.12.0")
         annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-        implementation ("com.squareup.picasso:picasso:2.71828")
-        implementation ("me.relex:circleindicator:2.1.6")
-        // Scroll
-        implementation ("androidx.core:core:1.10.0")
-        implementation ("androidx.core:core-ktx:1.15.0")
-        implementation ("androidx.core:core-splashscreen:1.0.0")
-        //circle image view
-        implementation ("de.hdodenhof:circleimageview:3.1.0")
-        implementation ("org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0")
-        // ShapeOfView
+        implementation("com.squareup.picasso:picasso:2.71828")
+        implementation("me.relex:circleindicator:2.1.6")
+// Scroll
+        implementation("androidx.core:core:1.10.0")
+        implementation("androidx.core:core-ktx:1.15.0")
+        implementation("androidx.core:core-splashscreen:1.0.0")
+//circle image view
+        implementation("de.hdodenhof:circleimageview:3.1.0")
+        implementation("org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0")
+// ShapeOfView
         implementation("io.github.florent37:shapeofview:1.4.7")
-        // Parse SDK
+// Parse SDK
         implementation("com.github.parse-community.Parse-SDK-Android:bolts-tasks:4.3.0")
         implementation("com.github.parse-community.Parse-SDK-Android:parse:4.3.0")
-        // For building media UIs
+// For building media UIs
         implementation("androidx.media3:media3-ui:1.4.1")
-        // For building media playback UIs for Android TV using the Jetpack Leanback library
-        implementation ("androidx.media3:media3-ui-leanback:1.4.1")
-        implementation ("androidx.viewpager2:viewpager2:1.0.0")
+// For building media playback UIs for Android TV using the Jetpack Leanback library
+        implementation("androidx.media3:media3-ui-leanback:1.4.1")
+        implementation("androidx.viewpager2:viewpager2:1.0.0")
         implementation("com.github.bumptech.glide:glide:4.16.0")
         implementation("androidx.viewpager2:viewpager2:1.1.0")
 
